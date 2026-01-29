@@ -4,6 +4,7 @@ pkgs.mkShell {
     mesa
     libGL
     libglvnd
+    zlib
     xorg.libX11
     xorg.libXrandr
     xorg.libXcursor
@@ -17,6 +18,7 @@ pkgs.mkShell {
     xorg.libXau
     xorg.libXdmcp
     freetype
+    fontconfig
   ]);
 
   NIX_LD = pkgs.lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";

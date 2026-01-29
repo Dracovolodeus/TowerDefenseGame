@@ -1,0 +1,12 @@
+from config.save import Save
+from config.screen import Screen
+from config.path import Path
+from config.text import Text
+
+
+class Settings:
+    def __init__(self) -> None:
+        self.screen: Screen = Screen()
+        self.path: Path = Path()
+        self.text: Text = Text()
+        self.save: Save = Save(self.path.save)
