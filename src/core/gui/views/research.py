@@ -3,7 +3,7 @@ from arcade.gui import (
     UIManager, UIBoxLayout, UIAnchorLayout
 )
 
-from src.core.gui.components.ResearchButton import ResearchButton
+from core.gui.components.ResearchButton import ResearchButton
 
 """Я когда зашел в репо я чет, скажем 'удивился', как на самом деле пишутся игры,
  а не эти ТУПЫЕ ЗАДАЧИ КОТОРЫЕ У МЕНЯ НЕ ПРОХОДЯТ"""

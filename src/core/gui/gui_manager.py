@@ -3,7 +3,7 @@ from arcade import Window
 
 from core.images.texture_pool import TexturePool
 
-from src.core.gui.views.research import ResearchView
+from core.gui.views.research import ResearchView
 
 
 class GUIManager:
