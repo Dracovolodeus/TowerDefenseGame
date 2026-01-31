@@ -1,6 +1,6 @@
 import arcade
 from arcade.gui import (
-    UIManager, UIBoxLayout, UIAnchorLayout
+    UIManager, UIBoxLayout, UIAnchorLayout, UILabel
 )
 
 from core.gui.components.ResearchButton import ResearchButton
@@ -9,43 +9,122 @@ from core.gui.components.ResearchButton import ResearchButton
  а не эти ТУПЫЕ ЗАДАЧИ КОТОРЫЕ У МЕНЯ НЕ ПРОХОДЯТ"""
 
 
-
 class ResearchView(arcade.View):
     def __init__(self):
         super().__init__()
 
         self.anchor_layout = UIAnchorLayout()
+        self.box = UIBoxLayout(vertical=False, space_between=100)
         self.ui_manager = UIManager()
 
     def on_show_view(self):
         self.ui_manager.enable()
-        box = UIBoxLayout(spacing=15)
+        attack_box = UIBoxLayout(spacing=15, space_between=30)
+        speed_box = UIBoxLayout(spacing=15, space_between=30)
+        length_box = UIBoxLayout(spacing=15, space_between=30)
 
-        box.add(
+        attack_texture = arcade.load_texture("core/images/damage.png")
+        length_texture = arcade.load_texture("core/images/length.png")
+        speed_texture = arcade.load_texture("core/images/speed.png")
+
+        attack_box.add(
             ResearchButton(
                 research_id="research_1",
-                text="Исследование I",
-                width=260
+                text="Урон +10%",
+                width=260,
+                icon_texture=attack_texture
             )
         )
 
-        box.add(
+        attack_box.add(
             ResearchButton(
                 research_id="research_2",
-                text="Исследование II",
-                width=260
+                text="Урон +10%",
+                width=260,
+                icon_texture=attack_texture
             )
         )
 
-        box.add(
+        attack_box.add(
             ResearchButton(
                 research_id="research_3",
-                text="Исследование III",
-                width=260
+                text="Урон +10%",
+                width=260,
+                icon_texture=attack_texture
             )
         )
 
-        self.anchor_layout.add(box)
+        attack_box.add(
+            UILabel("Улучшить Урон", font_size=18)
+        )
+
+        speed_box.add(
+            ResearchButton(
+                research_id="research_1",
+                text="Скорострельность +10%",
+                width=260,
+                icon_texture=speed_texture
+            )
+        )
+
+        speed_box.add(
+            ResearchButton(
+                research_id="research_2",
+                text="Скорострельность +10%",
+                width=260,
+                icon_texture=speed_texture
+            )
+        )
+
+        speed_box.add(
+            ResearchButton(
+                research_id="research_3",
+                text="Скорострельность +10%",
+                width=260,
+                icon_texture=speed_texture
+            )
+        )
+
+        speed_box.add(
+            UILabel("Улучшить Скорострельность", font_size=18)
+        )
+
+        length_box.add(
+            ResearchButton(
+                research_id="research_1",
+                text="Длина стрельбы +10%",
+                width=260,
+                icon_texture=length_texture
+            )
+        )
+
+        length_box.add(
+            ResearchButton(
+                research_id="research_2",
+                text="Длина стрельбы +10%",
+                width=260,
+                icon_texture=length_texture
+            )
+        )
+
+        length_box.add(
+            ResearchButton(
+                research_id="research_3",
+                text="Длина стрельбы +10%",
+                width=260,
+                icon_texture=length_texture
+            )
+        )
+
+        length_box.add(
+            UILabel("Улучшить Дальность Стрельбы", font_size=18)
+        )
+
+        self.box.add(attack_box)
+        self.box.add(length_box)
+        self.box.add(speed_box)
+
+        self.anchor_layout.add(self.box)
 
         self.ui_manager.add(self.anchor_layout)
 
