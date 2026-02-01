@@ -11,7 +11,7 @@ class LevelMap:
         self.complexity = level['complexity']
         self.path = level['path']
         self.enemies = level['enemies']
-        self.map_: list[list[int]] = level['map']
+        self.map_: list[list[int]] = level['map'][::-1]
         self.map_size = [len(self.map_[0]), len(self.map_)]
         self.elements = []
         y = 0
