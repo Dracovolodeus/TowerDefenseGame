@@ -8,10 +8,10 @@ class LevelMap:
         level: dict = JSONProcessor.read(cfg.settings.path.get_level(level_number))
         self._texture_pool = texture_pool
 
-        self.complexity = level['complexity']
-        self.path = level['path']
-        self.enemies = level['enemies']
-        self.map_: list[list[int]] = level['map'][::-1]
+        self.complexity = level["complexity"]
+        self.path = level["path"]
+        self.enemies = level["enemies"]
+        self.map_: list[list[int]] = level["map"][::-1]
         self.map_size = [len(self.map_[0]), len(self.map_)]
         self.elements = []
         y = 0
@@ -19,42 +19,42 @@ class LevelMap:
             x = 0
             for j in i:
                 match j:
-                    case 1: # Дорога
+                    case 1:  # Дорога
                         self.elements.append(
-                                {
-                                    "texture": self._texture_pool.get_texture(
-                                        cfg.settings.path.road
-                                        ),
-                                    "rect": arcade.rect.XYWH(x, y, 128, 128),
-                                    }
-                                )
-                    case 2: # Платформа
+                            {
+                                "texture": self._texture_pool.get_texture(
+                                    cfg.settings.path.road
+                                ),
+                                "rect": arcade.rect.XYWH(x, y, 128, 128),
+                            }
+                        )
+                    case 2:  # Платформа
                         self.elements.append(
-                                {
-                                    "texture": self._texture_pool.get_texture(
-                                        cfg.settings.path.platform
-                                        ),
-                                    "rect": arcade.rect.XYWH(x, y, 128, 128),
-                                    }
-                                )
-                    case 3: # Портал
+                            {
+                                "texture": self._texture_pool.get_texture(
+                                    cfg.settings.path.platform
+                                ),
+                                "rect": arcade.rect.XYWH(x, y, 128, 128),
+                            }
+                        )
+                    case 3:  # Портал
                         self.elements.append(
-                                {
-                                    "texture": self._texture_pool.get_texture(
-                                        cfg.settings.path.portal
-                                        ),
-                                    "rect": arcade.rect.XYWH(x, y, 128, 128),
-                                    }
-                                )
-                    case 4: # База
+                            {
+                                "texture": self._texture_pool.get_texture(
+                                    cfg.settings.path.portal
+                                ),
+                                "rect": arcade.rect.XYWH(x, y, 128, 128),
+                            }
+                        )
+                    case 4:  # База
                         self.elements.append(
-                                {
-                                    "texture": self._texture_pool.get_texture(
-                                        cfg.settings.path.base
-                                        ),
-                                    "rect": arcade.rect.XYWH(x, y, 128, 128),
-                                    }
-                                )
+                            {
+                                "texture": self._texture_pool.get_texture(
+                                    cfg.settings.path.base
+                                ),
+                                "rect": arcade.rect.XYWH(x, y, 128, 128),
+                            }
+                        )
                 x += 128
             y += 128
 

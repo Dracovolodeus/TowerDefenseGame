@@ -1,7 +1,5 @@
 import arcade
-from arcade.gui import (
-    UIManager, UIBoxLayout, UIAnchorLayout, UILabel
-)
+from arcade.gui import UIManager, UIBoxLayout, UIAnchorLayout, UILabel
 
 import config as cfg
 from core.gui.components.ResearchButton import ResearchButton
@@ -30,7 +28,7 @@ class ResearchView(arcade.View):
                 research_id="research_1",
                 text="Урон +10%",
                 width=260,
-                icon_texture=attack_texture
+                icon_texture=attack_texture,
             )
         )
 
@@ -39,7 +37,7 @@ class ResearchView(arcade.View):
                 research_id="research_2",
                 text="Урон +10%",
                 width=260,
-                icon_texture=attack_texture
+                icon_texture=attack_texture,
             )
         )
 
@@ -48,20 +46,18 @@ class ResearchView(arcade.View):
                 research_id="research_3",
                 text="Урон +10%",
                 width=260,
-                icon_texture=attack_texture
+                icon_texture=attack_texture,
             )
         )
 
-        attack_box.add(
-            UILabel("Улучшить Урон", font_size=18)
-        )
+        attack_box.add(UILabel("Улучшить Урон", font_size=18))
 
         speed_box.add(
             ResearchButton(
                 research_id="research_1",
                 text="Скорострельность +10%",
                 width=260,
-                icon_texture=speed_texture
+                icon_texture=speed_texture,
             )
         )
 
@@ -70,7 +66,7 @@ class ResearchView(arcade.View):
                 research_id="research_2",
                 text="Скорострельность +10%",
                 width=260,
-                icon_texture=speed_texture
+                icon_texture=speed_texture,
             )
         )
 
@@ -79,20 +75,18 @@ class ResearchView(arcade.View):
                 research_id="research_3",
                 text="Скорострельность +10%",
                 width=260,
-                icon_texture=speed_texture
+                icon_texture=speed_texture,
             )
         )
 
-        speed_box.add(
-            UILabel("Улучшить Скорострельность", font_size=18)
-        )
+        speed_box.add(UILabel("Улучшить Скорострельность", font_size=18))
 
         length_box.add(
             ResearchButton(
                 research_id="research_1",
                 text="Длина стрельбы +10%",
                 width=260,
-                icon_texture=length_texture
+                icon_texture=length_texture,
             )
         )
 
@@ -101,7 +95,7 @@ class ResearchView(arcade.View):
                 research_id="research_2",
                 text="Длина стрельбы +10%",
                 width=260,
-                icon_texture=length_texture
+                icon_texture=length_texture,
             )
         )
 
@@ -110,13 +104,11 @@ class ResearchView(arcade.View):
                 research_id="research_3",
                 text="Длина стрельбы +10%",
                 width=260,
-                icon_texture=length_texture
+                icon_texture=length_texture,
             )
         )
 
-        length_box.add(
-            UILabel("Улучшить Дальность Стрельбы", font_size=18)
-        )
+        length_box.add(UILabel("Улучшить Дальность Стрельбы", font_size=18))
 
         self.box.add(attack_box)
         self.box.add(length_box)

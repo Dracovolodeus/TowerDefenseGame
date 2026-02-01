@@ -56,4 +56,3 @@ class Path:
 
     def get_level(self, level_number: int) -> PathLibPath:
         return self.__maps / f"{level_number}.json"
-

@@ -8,3 +8,8 @@ dependencies = [
     "arcade>=3.3.3",
     "pygame>=2.6.1",
 ]
+
+[dependency-groups]
+dev = [
+    "black>=26.1.0",
+]
