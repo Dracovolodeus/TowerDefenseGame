@@ -1,6 +1,6 @@
-from core.gui.gui_manager import GUIManager
 from arcade import Window
 
+from core.gui.gui_manager import GUIManager
 from core.images.texture_pool import TexturePool
 
 

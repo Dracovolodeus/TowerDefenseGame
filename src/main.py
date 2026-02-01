@@ -1,6 +1,7 @@
-from core.game_manager import GameManager
-from config import settings
 import arcade
+
+from config import settings
+from core.game_manager import GameManager
 
 
 class App(arcade.Window):

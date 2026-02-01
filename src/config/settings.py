@@ -1,6 +1,6 @@
+from config.path import Path
 from config.save import Save
 from config.screen import Screen
-from config.path import Path
 from config.text import Text
 
 

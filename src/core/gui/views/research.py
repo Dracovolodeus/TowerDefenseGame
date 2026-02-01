@@ -1,5 +1,5 @@
 import arcade
-from arcade.gui import UIManager, UIBoxLayout, UIAnchorLayout, UILabel
+from arcade.gui import UIAnchorLayout, UIBoxLayout, UILabel, UIManager
 
 import config as cfg
 from core.gui.components.ResearchButton import ResearchButton

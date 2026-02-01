@@ -1,9 +1,5 @@
 import arcade
-from arcade.gui import (
-    UIBoxLayout,
-    UIAnchorLayout,
-    UIFlatButton,
-)
+from arcade.gui import UIAnchorLayout, UIBoxLayout, UIFlatButton
 
 from core.gui.views.base import BaseView
 

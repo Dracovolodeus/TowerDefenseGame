@@ -1,6 +1,6 @@
-from utils.json_func import JSONProcessor
-
 from pathlib import Path
+
+from utils.json_func import JSONProcessor
 
 
 class Save:

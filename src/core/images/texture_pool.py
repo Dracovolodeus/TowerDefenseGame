@@ -1,5 +1,6 @@
-from arcade import Texture, load_texture
 from pathlib import Path
+
+from arcade import Texture, load_texture
 
 
 class TexturePool:

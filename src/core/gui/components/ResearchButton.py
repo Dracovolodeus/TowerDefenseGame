@@ -1,8 +1,8 @@
 import copy
 
 import arcade
-from arcade.color import LIGHT_GRAY, GRAY_BLUE
-from arcade.gui import UIFlatButton, UIImage, UIBoxLayout, UILabel, UIOnClickEvent
+from arcade.color import GRAY_BLUE, LIGHT_GRAY
+from arcade.gui import UIBoxLayout, UIFlatButton, UIImage, UILabel, UIOnClickEvent
 
 
 class ResearchButton(UIFlatButton):

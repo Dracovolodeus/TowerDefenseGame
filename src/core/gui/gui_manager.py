@@ -1,11 +1,10 @@
-from core.play.views.level import Level
-from core.gui.views.select_level import SelectLevelView
-from core.gui.views.start import StartView
 from arcade import Window
 
-from core.images.texture_pool import TexturePool
-
 from core.gui.views.research import ResearchView
+from core.gui.views.select_level import SelectLevelView
+from core.gui.views.start import StartView
+from core.images.texture_pool import TexturePool
+from core.play.views.level import Level
 
 
 class GUIManager:

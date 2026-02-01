@@ -1,6 +1,7 @@
 import arcade
-from utils.json_func import JSONProcessor
+
 import config as cfg
+from utils.json_func import JSONProcessor
 
 
 class LevelMap:

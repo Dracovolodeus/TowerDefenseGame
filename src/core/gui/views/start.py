@@ -1,9 +1,8 @@
 import arcade
-from core.gui.views.base import BaseView
-from arcade.gui import (
-    UIFlatButton,
-)
+from arcade.gui import UIFlatButton
+
 import config as cfg
+from core.gui.views.base import BaseView
 
 
 class StartView(BaseView):
