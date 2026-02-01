@@ -5,9 +5,6 @@ from arcade.gui import (
 
 from core.gui.components.ResearchButton import ResearchButton
 
-"""Я когда зашел в репо я чет, скажем 'удивился', как на самом деле пишутся игры,
- а не эти ТУПЫЕ ЗАДАЧИ КОТОРЫЕ У МЕНЯ НЕ ПРОХОДЯТ"""
-
 
 class ResearchView(arcade.View):
     def __init__(self):

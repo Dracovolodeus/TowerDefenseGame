@@ -1,3 +1,5 @@
+from core.gui.views.level1 import Level1
+from core.gui.views.select_level import SelectLevelView
 from core.gui.views.start import StartView
 from arcade import Window
 
@@ -12,12 +14,17 @@ class GUIManager:
         self.__texture_pool = texture_pool
         self.__start_menu = StartView(self, self.__texture_pool)
         self.__research_menu = ResearchView()
+        self.__select_level_menu = SelectLevelView(self, self.__texture_pool)
+        self.__level1_screen = Level1()
 
     def set_start_menu(self) -> None:
         self.__app.show_view(self.__start_menu)
 
     def set_level_selection_menu(self) -> None:
-        print("Нужно реализовать эту менюшку")  # TODO Меню выбора уровня
+        self.__app.show_view(self.__select_level_menu)
 
     def set_researches_menu(self) -> None:
-        self.__app.show_view(self.__research_menu)  # TODO Меню исследований
+        self.__app.show_view(self.__research_menu)
+
+    def set_level1_screen(self) -> None:
+        self.__app.show_view(self.__level1_screen)
