@@ -1,6 +1,6 @@
 import arcade
 from core.images.texture_pool import TexturePool
-from core.play.map import LevelMap
+from core.play.components.level_map import LevelMap
 
 class Level(arcade.View):
     def __init__(self, texture_pool: TexturePool, level_number: int) -> None:
