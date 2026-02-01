@@ -23,6 +23,14 @@ class Path:
 
         # Images
         self.__images = self.__assets / "images"
+
+        # UI
+        self.__ui = self.__images / "ui"
+        self.damage = self.__ui / "damage.png"
+        self.length = self.__ui / "length.png"
+        self.speed = self.__ui / "speed.png"
+
+        # Turrets
         self.__turrets = self.__images / "turrets"
 
         # Backgrounds

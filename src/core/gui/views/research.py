@@ -3,6 +3,7 @@ from arcade.gui import (
     UIManager, UIBoxLayout, UIAnchorLayout, UILabel
 )
 
+import config as cfg
 from core.gui.components.ResearchButton import ResearchButton
 
 
@@ -20,9 +21,9 @@ class ResearchView(arcade.View):
         speed_box = UIBoxLayout(spacing=15, space_between=30)
         length_box = UIBoxLayout(spacing=15, space_between=30)
 
-        attack_texture = arcade.load_texture("core/images/damage.png")
-        length_texture = arcade.load_texture("core/images/length.png")
-        speed_texture = arcade.load_texture("core/images/speed.png")
+        attack_texture = arcade.load_texture(cfg.settings.path.damage)
+        length_texture = arcade.load_texture(cfg.settings.path.length)
+        speed_texture = arcade.load_texture(cfg.settings.path.speed)
 
         attack_box.add(
             ResearchButton(
