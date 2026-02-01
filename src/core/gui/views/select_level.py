@@ -26,7 +26,7 @@ class SelectLevelView(BaseView):
             text="1"
         )
         btn_level1.on_click = (
-            lambda event: self._gui_manager.set_level1_screen()
+            lambda event: self._gui_manager.set_level_screen(1)
         )
 
         btn_level2 = UIFlatButton(width=100, height=100, text="2")
