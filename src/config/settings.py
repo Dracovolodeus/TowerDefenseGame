@@ -1,4 +1,5 @@
 from config.enemies import Enemies
+from config.level_values import LevelValues
 from config.path import Path
 from config.save import Save
 from config.screen import Screen
@@ -12,3 +13,4 @@ class Settings:
         self.text: Text = Text()
         self.enemies: Enemies = Enemies(self.path)
         self.save: Save = Save(self.path.save)
+        self.level: LevelValues = LevelValues()

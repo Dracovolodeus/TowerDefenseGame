@@ -1,7 +1,7 @@
 import arcade
 
 import config as cfg
-from core.play.components.enemies.wenemy_info import EnemyInfo
+from core.play.components.enemies.enemy_info import EnemyInfo
 from core.play.components.level.tiles import Base, Platform, Portal, Road
 from utils.json_func import JSONProcessor
 
@@ -28,6 +28,10 @@ class LevelMap:
     def get_path(self) -> list[tuple[int, int]]:
         return self.__path
 
+    def next_wave(self) -> None:
+        pass
+        # self.__portal.position
+
     def __setup(self, map_: list[list[int]], enemies: list[dict]) -> None:
         self.__setup_map(map_)
         self.__setup_enemies_settings(enemies)
@@ -43,7 +47,8 @@ class LevelMap:
                     case 2:  # Платформа
                         self.__tiles.append(Platform(self.__texture_pool, (x, y)))
                     case 3:  # Портал
-                        self.__tiles.append(Portal(self.__texture_pool, (x, y)))
+                        self.__portal = Portal(self.__texture_pool, (x, y))
+                        self.__tiles.append(self.__portal)
                     case 4:  # База
                         self.__base_tile.append(Base(self.__texture_pool, (x, y)))
                 x += 128
@@ -54,16 +59,16 @@ class LevelMap:
             gain = enemy.get("gain", {})
             speed = gain.get("speed", {})
             health = gain.get("health", {})
-            self.__enemies_info.append(EnemyInfo(
-                type=enemy["type"],
-                frequency=enemy["frequency"],
-                health=enemy["start"]["health"],
-                gain_speed_step=speed.get("step"),
-                gain_speed_value=speed.get("value"),
-                gain_speed_count=speed.get("count"),
-                gain_health_step=health.get("step"),
-                gain_health_value=health.get("value"),
-                gain_health_count=health.get("count"),
+            self.__enemies_info.append(
+                EnemyInfo(
+                    type=enemy["type"],
+                    frequency=enemy["frequency"],
+                    health=enemy["start"]["health"],
+                    gain_speed_step=speed.get("step"),
+                    gain_speed_value=speed.get("value"),
+                    gain_speed_count=speed.get("count"),
+                    gain_health_step=health.get("step"),
+                    gain_health_value=health.get("value"),
+                    gain_health_count=health.get("count"),
                 )
-                                       )
-
+            )
