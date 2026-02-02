@@ -39,6 +39,5 @@ class SelectLevelView(BaseView):
         self._manager.add(back_button)
 
     def on_draw(self):
-
         self.clear()
         self._manager.draw()
