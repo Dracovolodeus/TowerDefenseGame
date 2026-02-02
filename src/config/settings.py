@@ -1,3 +1,4 @@
+from config.enemies import Enemies
 from config.path import Path
 from config.save import Save
 from config.screen import Screen
@@ -9,4 +10,5 @@ class Settings:
         self.screen: Screen = Screen()
         self.path: Path = Path()
         self.text: Text = Text()
+        self.enemies: Enemies = Enemies(self.path)
         self.save: Save = Save(self.path.save)

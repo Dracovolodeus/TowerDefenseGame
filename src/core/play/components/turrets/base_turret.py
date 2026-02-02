@@ -46,4 +46,3 @@ class BaseTurret:
     @_angle.setter
     def _angle(self, angle: float) -> None:
         self.tower.angle = angle
-

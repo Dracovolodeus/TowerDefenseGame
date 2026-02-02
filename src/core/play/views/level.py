@@ -11,6 +11,7 @@ class Level(arcade.View):
         super().__init__()
         self._texture_pool = texture_pool
         self.level_map = LevelMap(texture_pool, level_number)
+        self.health = 10
         self.__turrets_manager = TurretsManager(texture_pool)
         self.__turrets_manager.add_turret(Base, (100, 100))
 
@@ -20,8 +21,14 @@ class Level(arcade.View):
 
     def on_draw(self) -> None:
         self.clear()
-        self.level_map.draw()
+        self.level_map.draw_tiles()
         self.__turrets_manager.draw()
+        self.level_map.draw_base()
 
     def on_update(self, delta_time: float) -> bool | None:
         self.__turrets_manager.update(delta_time)
+
+    def deal_damage(self, value: int = 1) -> None:
+        self.health -= value if self.health - value >= 0 else self.health
+        if self.health == 0:
+            print("GAME OFF")  # TODO

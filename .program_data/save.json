@@ -1,3 +1,8 @@
 {
-  "have_saved_game": false
+  "have_saved_game": false,
+  "first_level_records": 0,
+  "second_level_records": 0,
+  "third_level_records": 0,
+  "fourth_level_records": 0,
+  "fifth_level_records": 0
 }

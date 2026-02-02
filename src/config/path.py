@@ -44,6 +44,14 @@ class Path:
         self.portal = self.__tiles / "portal.png"
         self.base = self.__tiles / "base.png"
 
+        # Enemies
+        self.__enemies = self.__images / "enemies"
+        self.common = self.__enemies / "common.png"
+        self.powerful = self.__enemies / "powerful.png"
+        self.regenerating = self.__enemies / "regenerating.png"
+        self.fast = self.__enemies / "fast.png"
+        self.boss = self.__enemies / "boss.png"
+
         # Maps
         self.__maps = self.__assets / "maps"
 

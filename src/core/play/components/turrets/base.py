@@ -27,4 +27,6 @@ class Base(BaseTurret):
 
     @override
     def update(self, delta_time: float) -> None:
-        self._angle += 10 * delta_time if self._angle + 10 * delta_time < 360 else -self._angle
+        self._angle += (
+            10 * delta_time if self._angle + 10 * delta_time < 360 else -self._angle
+        )
