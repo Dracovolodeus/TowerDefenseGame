@@ -56,4 +56,4 @@ class BaseEnemy(arcade.Sprite):
                 self.center_y += change
             case -2:
                 self.center_y -= change
-        self._path += abs(change)
+        self._path += change
