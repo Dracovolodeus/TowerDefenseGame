@@ -12,7 +12,7 @@ class GUIManager:
         self.__app = app
         self.__texture_pool = texture_pool
         self.__start_menu = StartView(self, self.__texture_pool)
-        self.__research_menu = ResearchView()
+        self.__research_menu = ResearchView(self, self.__texture_pool)
         self.__select_level_menu = SelectLevelView(self, self.__texture_pool)
 
     def set_start_menu(self) -> None:

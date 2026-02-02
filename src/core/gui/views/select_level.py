@@ -32,7 +32,11 @@ class SelectLevelView(BaseView):
 
         anchor.add(child=box, anchor_x="center", anchor_y="center")
 
+        back_button = UIFlatButton(x=50, y=self.height - 100, text="<")
+        back_button.on_click = lambda event: self._gui_manager.set_start_menu()
+
         self._manager.add(anchor)
+        self._manager.add(back_button)
 
     def on_draw(self):
         self.clear()
