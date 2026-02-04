@@ -72,3 +72,6 @@ class LevelMap:
                     gain_health_count=health.get("count"),
                 )
             )
+
+    def get_tiles(self):
+        return self.__tiles

@@ -13,3 +13,6 @@ class Platform(arcade.Sprite):
             position[0] - self.texture.width / 2,
             position[1] - self.texture.height / 2,
         )
+
+
+
