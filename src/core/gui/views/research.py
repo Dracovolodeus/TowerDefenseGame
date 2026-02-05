@@ -1,20 +1,20 @@
 import arcade
-from arcade.gui import UIAnchorLayout, UIBoxLayout, UILabel, UIManager
+from arcade.gui import UIAnchorLayout, UIBoxLayout, UIFlatButton, UILabel, UIManager
 
 import config as cfg
 from core.gui.components.ResearchButton import ResearchButton
+from core.gui.views.base import BaseView
 
 
-class ResearchView(arcade.View):
-    def __init__(self):
-        super().__init__()
+class ResearchView(BaseView):
+    def setup_widgets(self) -> None:
+        if self._widgets_initialized:
+            return
 
-        self.anchor_layout = UIAnchorLayout()
-        self.box = UIBoxLayout(vertical=False, space_between=100)
-        self.ui_manager = UIManager()
+        self._widgets_initialized = True
 
-    def on_show_view(self):
-        self.ui_manager.enable()
+        anchor_layout = UIAnchorLayout()
+
         attack_box = UIBoxLayout(spacing=15, space_between=30)
         speed_box = UIBoxLayout(spacing=15, space_between=30)
         length_box = UIBoxLayout(spacing=15, space_between=30)
@@ -110,17 +110,19 @@ class ResearchView(arcade.View):
 
         length_box.add(UILabel("Улучшить Дальность Стрельбы", font_size=18))
 
-        self.box.add(attack_box)
-        self.box.add(length_box)
-        self.box.add(speed_box)
+        back_button = UIFlatButton(x=50, y=self.height - 100, text="<")
+        back_button.on_click = lambda event: self._gui_manager.set_start_menu()
+        box = UIBoxLayout(vertical=False, space_between=100)
 
-        self.anchor_layout.add(self.box)
+        box.add(attack_box)
+        box.add(length_box)
+        box.add(speed_box)
 
-        self.ui_manager.add(self.anchor_layout)
+        anchor_layout.add(box)
+        self._manager.add(back_button)
 
-    def on_hide_view(self):
-        self.ui_manager.disable()
+        self._manager.add(anchor_layout)
 
     def on_draw(self):
         self.clear()
-        self.ui_manager.draw()
+        self._manager.draw()

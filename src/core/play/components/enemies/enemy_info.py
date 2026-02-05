@@ -5,7 +5,8 @@ from dataclasses import dataclass
 class EnemyInfo:
     type: str
     frequency: int
-    health: float
+    health: int | float
+    speed: int | float
     gain_speed_step: float | None
     gain_speed_value: float | None
     gain_speed_count: float | None

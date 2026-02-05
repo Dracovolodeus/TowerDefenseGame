@@ -12,7 +12,13 @@
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
   ],
-  "path": [],
+  "path": [
+    [128, -2],
+    [1280, 1],
+    [512, 2],
+    [1280, -1],
+    [128, -2]
+  ],
   "enemies": [
     {
       "type": "common",
@@ -52,5 +58,33 @@
         }
       }
     }
-  ]
+  ],
+  "waves": {
+    "path": {
+      "start": "1",
+      "1": "2",
+      "2": "1"
+    },
+    "schemas": {
+      "1": {
+        "0": {
+          "enemy_type": "common",
+          "enemy_quantity": 5,
+          "density": 0.25
+        },
+        "1": {
+          "enemy_type": "powerful",
+          "enemy_quantity": 3,
+          "density": 0.35
+        }
+      },
+      "2": {
+        "1": {
+          "enemy_type": "common",
+          "enemy_quantity": 15,
+          "density": 0.05
+        }
+      }
+    }
+  }
 }
