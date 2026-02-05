@@ -37,6 +37,7 @@ class BaseEnemy(arcade.Sprite):
         if not self._route:
             self.deal_damage_game()
             self.kill()
+            return
         change = self._speed * delta_time
         change_type = self._route[0][1]
 
@@ -49,11 +50,15 @@ class BaseEnemy(arcade.Sprite):
 
         match change_type:
             case 1:
-                self.center_x += change
+                self.angle = 90
+                self.forward(change)
             case -1:
-                self.center_x -= change
+                self.angle = 270
+                self.forward(change)
             case 2:
-                self.center_y += change
+                self.angle = 0
+                self.forward(change)
             case -2:
-                self.center_y -= change
+                self.angle = 180
+                self.forward(change)
         self._path += change

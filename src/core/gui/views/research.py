@@ -1,5 +1,5 @@
 import arcade
-from arcade.gui import UIAnchorLayout, UIBoxLayout, UILabel, UIManager, UIFlatButton
+from arcade.gui import UIAnchorLayout, UIBoxLayout, UIFlatButton, UILabel
 
 import config as cfg
 from core.gui.components.ResearchButton import ResearchButton
@@ -13,7 +13,7 @@ class ResearchView(BaseView):
 
         self._widgets_initialized = True
 
-        anchor_layout =  UIAnchorLayout()
+        anchor_layout = UIAnchorLayout()
 
         attack_box = UIBoxLayout(spacing=15, space_between=30)
         speed_box = UIBoxLayout(spacing=15, space_between=30)
