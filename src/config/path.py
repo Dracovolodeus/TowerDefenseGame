@@ -36,6 +36,7 @@ class Path:
         # Backgrounds
         self.__backagraunds = self.__images / "backgrounds"
         self.start_menu = self.__backagraunds / "start_menu.png"
+        self.tower_menu = self.__backagraunds / "towers_choose_back.png"
 
         # Tiles
         self.__tiles = self.__images / "tiles"
