@@ -100,15 +100,14 @@ class LevelMap:
             self.__enemies_info.append(
                 EnemyInfo(
                     type=type_,
-                    frequency=enemy["frequency"],
                     health=enemy["start"]["health"],
                     speed=speed_dict.get(type_, 0),
                     gain_speed_step=speed.get("step"),
                     gain_speed_value=speed.get("value"),
-                    gain_speed_count=speed.get("count"),
+                    gain_speed_count=speed["count"],
                     gain_health_step=health.get("step"),
                     gain_health_value=health.get("value"),
-                    gain_health_count=health.get("count"),
+                    gain_health_count=health["count"],
                 )
             )
 
@@ -118,4 +117,32 @@ class LevelMap:
             self.__wave_path[self.__current_wave_index]
         ]
 
-    def __update_enemies_power(self) -> None: ... #TODO
+    def __update_enemies_power(self) -> None:
+        for enemy_info in self.__enemies_info:
+            # Health
+            if (
+                not (enemy_info.gain_health_step is None)
+                and not (enemy_info.gain_health_count is None)
+                and not (enemy_info.gain_health_value is None)
+                and self.__wave_count % enemy_info.gain_health_step == 0
+                and (
+                    self.__wave_count // enemy_info.gain_health_step
+                    <= enemy_info.gain_health_count
+                    or enemy_info.gain_health_count == -1
+                )
+            ):
+                enemy_info.health += enemy_info.gain_health_value
+
+            # Speed
+            if (
+                not (enemy_info.gain_speed_step is None)
+                and not (enemy_info.gain_speed_count is None)
+                and not (enemy_info.gain_speed_value is None)
+                and self.__wave_count % enemy_info.gain_speed_step == 0
+                and (
+                    self.__wave_count // enemy_info.gain_speed_step
+                    <= enemy_info.gain_speed_count
+                    or enemy_info.gain_speed_count == -1
+                )
+            ):
+                enemy_info.speed += enemy_info.gain_speed_value
