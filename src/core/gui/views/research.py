@@ -13,6 +13,11 @@ class ResearchView(BaseView):
 
         self._widgets_initialized = True
 
+        self.background = self._texture_pool.get_texture(
+            cfg.settings.path.research_menu
+        )
+        self.bg_x, self.bg_y = self.width // 2, self.height // 2
+
         anchor_layout = UIAnchorLayout()
 
         attack_box = UIBoxLayout(spacing=15, space_between=30)
@@ -125,4 +130,8 @@ class ResearchView(BaseView):
 
     def on_draw(self):
         self.clear()
+        arcade.draw_texture_rect(
+            self.background,
+            arcade.rect.XYWH(self.bg_x, self.bg_y, self.width, self.height),
+        )
         self._manager.draw()

@@ -1,4 +1,5 @@
 import arcade
+import config as cfg
 from arcade.gui import UIAnchorLayout, UIBoxLayout, UIFlatButton
 
 from core.gui.views.base import BaseView
@@ -11,6 +12,11 @@ class SelectLevelView(BaseView):
             return
 
         self._widgets_initialized = True
+
+        self.background = self._texture_pool.get_texture(
+            cfg.settings.path.select_level_menu
+        )
+        self.bg_x, self.bg_y = self.width // 2, self.height // 2
 
         anchor = UIAnchorLayout()
 
@@ -40,4 +46,8 @@ class SelectLevelView(BaseView):
 
     def on_draw(self):
         self.clear()
+        arcade.draw_texture_rect(
+            self.background,
+            arcade.rect.XYWH(self.bg_x, self.bg_y, self.width, self.height),
+        )
         self._manager.draw()

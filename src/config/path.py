@@ -34,8 +34,10 @@ class Path:
         self.__turrets = self.__images / "turrets"
 
         # Backgrounds
-        self.__backagraunds = self.__images / "backgrounds"
-        self.start_menu = self.__backagraunds / "start_menu.png"
+        self.__backgrounds = self.__images / "backgrounds"
+        self.start_menu = self.__backgrounds / "start_menu.png"
+        self.research_menu = self.__backgrounds / "research_menu.png"
+        self.select_level_menu = self.__backgrounds / "select_level_menu.png"
 
         # Tiles
         self.__tiles = self.__images / "tiles"
