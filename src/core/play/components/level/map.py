@@ -23,11 +23,13 @@ class LevelMap:
         self.__current_wave_index: str = "start"
         self.__enemies_info: list[EnemyInfo] = []
         self.__tiles = arcade.SpriteList()
+        self.__platform_tiles = arcade.SpriteList()
         self.__set_next_wave_scheme()
         self.__setup(level["map"], level["enemies"])
 
-    def draw_tiles(self) -> None:
+    def draw(self) -> None:
         self.__tiles.draw()
+        self.__platform_tiles.draw()
 
     def get_path(self) -> list[tuple[int, int]]:
         return self.__path
@@ -75,7 +77,7 @@ class LevelMap:
                     case 1:  # Дорога
                         self.__tiles.append(Road(self.__texture_pool, (x, y)))
                     case 2:  # Платформа
-                        self.__tiles.append(Platform(self.__texture_pool, (x, y)))
+                        self.__platform_tiles.append(Platform(self.__texture_pool, (x, y)))
                     case 3:  # Портал
                         self.__portal = Portal(self.__texture_pool, (x, y))
                         self.__tiles.append(self.__portal)
@@ -111,8 +113,8 @@ class LevelMap:
                 )
             )
 
-    def get_tiles(self):
-        return self.__tiles
+    def get_platform_tiles(self):
+        return self.__platform_tiles
 
     def __set_next_wave_scheme(self) -> None:
         self.__current_wave_index = self.__wave_path[self.__current_wave_index]

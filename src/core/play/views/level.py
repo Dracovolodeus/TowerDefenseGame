@@ -33,14 +33,14 @@ class Level(arcade.View):
         self, x: int, y: int, button: int, modifiers: int
     ) -> bool | None:
         if button == arcade.MOUSE_BUTTON_LEFT:
-            if arcade.get_sprites_at_point((x, y), self.level_map.get_tiles()):
+            if arcade.get_sprites_at_point((x, y), self.level_map.get_platform_tiles()):
                 self.show_menu = True
             else:
                 self.show_menu = False
 
     def on_draw(self) -> None:
         self.clear()
-        self.level_map.draw_tiles()
+        self.level_map.draw()
         self.__enemy_manager.draw()
         self.__turrets_manager.draw()
         self.level_gui.draw_hp()
