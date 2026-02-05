@@ -21,7 +21,8 @@ class Level(arcade.View):
             route=self.level_map.get_path(),
             position=self.level_map.get_portal_position(),
         )
-        self.__set_wave_gen(need_next=True)
+        self.__wave_time_counter = 0
+        self.__wave_gen_alive = False
         self.health = cfg.settings.level.health
         self.level_gui = PlayGUI(cfg.settings.level.health)
 
