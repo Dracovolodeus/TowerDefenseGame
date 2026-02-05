@@ -26,15 +26,19 @@ class Level(arcade.View):
         self.health = cfg.settings.level.health
         self.level_gui = PlayGUI(cfg.settings.level.health)
 
-    def on_show_view(self) -> None: ...
+    def on_show_view(self) -> None:
+        ...
 
-    def on_hide_view(self) -> None: ...
+    def on_hide_view(self) -> None:
+        ...
 
     def on_mouse_press(
-        self, x: int, y: int, button: int, modifiers: int
+            self, x: int, y: int, button: int, modifiers: int
     ) -> bool | None:
         if button == arcade.MOUSE_BUTTON_LEFT:
-            if arcade.get_sprites_at_point((x, y), self.level_map.get_platform_tiles()):
+            pressed_tile = arcade.get_sprites_at_point((x, y), self.level_map.get_platform_tiles())
+            if pressed_tile:
+                self.level_gui.curr_position = (pressed_tile[0].center_x, pressed_tile[0].center_y)
                 self.show_menu = True
             else:
                 self.show_menu = False
@@ -46,7 +50,13 @@ class Level(arcade.View):
         self.__turrets_manager.draw()
         self.level_gui.draw_hp()
         if self.show_menu:
-            self.level_gui.draw_menu()
+            arcade.draw_texture_rect(
+                arcade.load_texture(self.level_gui.backgroundPath),
+                arcade.XYWH(
+                    cfg.settings.screen.width - 250, cfg.settings.screen.height // 2, 500, cfg.settings.screen.height
+                )
+            )
+            self.level_gui.manager.draw()
 
     def __spawn_enemies_if_need(self, delta_time: float) -> None:
         if self.__wave_gen_alive:
@@ -61,6 +71,9 @@ class Level(arcade.View):
         self.__enemy_manager.update(delta_time)
         self.__turrets_manager.update(delta_time)
 
+        if self.level_gui.turret_placed is not None:
+            self.add_turret(self.level_gui.turret_placed, self.level_gui.curr_position)
+
     def deal_damage(self, value: int = 1) -> None:
         self.health -= value if self.health - value >= 0 else self.health
         self.level_gui.cur_health = self.health
@@ -73,3 +86,7 @@ class Level(arcade.View):
         self.__wave_time_counter = 0
         if need_next:
             next(self.__wave_gen)
+
+    def add_turret(self, name, position):
+        """TODO Ждать пока self.__turrets_manager.add_turret() поменяет свою структуру"""
+        # self.__turrets_manager.add_turret(name, position)
