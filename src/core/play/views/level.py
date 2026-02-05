@@ -36,9 +36,11 @@ class Level(arcade.View):
     def __spawn_enemies_if_need(self, delta_time: float) -> None:
         if self.__wave_gen_alive:
             self.__wave_gen_alive = self.__wave_gen.send(delta_time)
-
-        elif True:
+        elif self.__wave_time_counter >= cfg.settings.level.wave_delta_time:
             self.__set_wave_gen()
+        else:
+            self.__wave_time_counter += delta_time
+        print(self.__wave_time_counter)
 
     def on_update(self, delta_time: float) -> bool | None:
         self.__spawn_enemies_if_need(delta_time)
@@ -53,5 +55,6 @@ class Level(arcade.View):
     def __set_wave_gen(self, need_next: bool = True) -> None:
         self.__wave_gen = self.level_map.next_wave(self.__enemy_manager.add_enemy)
         self.__wave_gen_alive = True
+        self.__wave_time_counter = 0
         if need_next:
             next(self.__wave_gen)

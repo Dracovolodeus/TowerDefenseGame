@@ -11,6 +11,6 @@ class Settings:
         self.screen: Screen = Screen()
         self.path: Path = Path()
         self.text: Text = Text()
-        self.enemies: Enemies = Enemies(self.path)
         self.save: Save = Save(self.path.save)
+        self.enemies: Enemies = Enemies(self.path)
         self.level: LevelValues = LevelValues()
