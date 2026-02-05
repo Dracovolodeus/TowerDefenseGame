@@ -4,6 +4,7 @@ import arcade
 
 import config as cfg
 from core.images.texture_pool import TexturePool
+from core.play.components.enemies.base_enemy import BaseEnemy
 from core.play.components.enemies.boss import BossEnemy
 from core.play.components.enemies.common import CommonEnemy
 from core.play.components.enemies.fast import FastEnemy
@@ -89,3 +90,6 @@ class EnemyManager:
                     route=self.__route.copy(),
                 )
         self.__enemies_list.append(enemy)
+
+    def get_all_enemies(self) -> arcade.SpriteList[BaseEnemy]:
+        return self.__enemies_list

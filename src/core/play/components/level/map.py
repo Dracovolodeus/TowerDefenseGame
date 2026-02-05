@@ -77,7 +77,9 @@ class LevelMap:
                     case 1:  # Дорога
                         self.__tiles.append(Road(self.__texture_pool, (x, y)))
                     case 2:  # Платформа
-                        self.__platform_tiles.append(Platform(self.__texture_pool, (x, y)))
+                        self.__platform_tiles.append(
+                            Platform(self.__texture_pool, (x, y))
+                        )
                     case 3:  # Портал
                         self.__portal = Portal(self.__texture_pool, (x, y))
                         self.__tiles.append(self.__portal)

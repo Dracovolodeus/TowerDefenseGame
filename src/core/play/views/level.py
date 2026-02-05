@@ -4,6 +4,7 @@ import config as cfg
 from core.gui.components.play.play_gui import PlayGUI
 from core.images.texture_pool import TexturePool
 from core.play.components.level.map import LevelMap
+from core.play.managers.bullet import BulletManager
 from core.play.managers.enemy import EnemyManager
 from core.play.managers.turret import TurretsManager
 
@@ -14,12 +15,17 @@ class Level(arcade.View):
         self.show_menu = False
         self._texture_pool = texture_pool
         self.level_map = LevelMap(texture_pool, level_number)
-        self.__turrets_manager = TurretsManager(texture_pool)
+        self.__bullet_manager = BulletManager()
         self.__enemy_manager: EnemyManager = EnemyManager(
             level=self,
             texture_pool=self._texture_pool,
             route=self.level_map.get_path(),
             position=self.level_map.get_portal_position(),
+        )
+        self.__turrets_manager = TurretsManager(
+            texture_pool,
+            enemy_manager=self.__enemy_manager,
+            bullet_manager=self.__bullet_manager,
         )
         self.__wave_time_counter = 0
         self.__wave_gen_alive = False
@@ -43,7 +49,9 @@ class Level(arcade.View):
         self.clear()
         self.level_map.draw()
         self.__enemy_manager.draw()
-        self.__turrets_manager.draw()
+        self.__turrets_manager.draw_bases()
+        self.__bullet_manager.draw()
+        self.__turrets_manager.draw_towers()
         self.level_gui.draw_hp()
         if self.show_menu:
             self.level_gui.draw_menu()
@@ -59,6 +67,7 @@ class Level(arcade.View):
     def on_update(self, delta_time: float) -> bool | None:
         self.__spawn_enemies_if_need(delta_time)
         self.__enemy_manager.update(delta_time)
+        self.__bullet_manager.update()
         self.__turrets_manager.update(delta_time)
 
     def deal_damage(self, value: int = 1) -> None:

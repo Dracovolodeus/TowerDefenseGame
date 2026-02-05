@@ -1,4 +1,5 @@
 import arcade
+
 import config as cfg
 
 
@@ -27,7 +28,11 @@ class PlayGUI:
 
     def draw_menu(self):
         arcade.draw_lbwh_rectangle_filled(
-            cfg.settings.screen.width - 600, 0, 600, cfg.settings.screen.height, arcade.color.DARK_BLUE
+            cfg.settings.screen.width - 600,
+            0,
+            600,
+            cfg.settings.screen.height,
+            arcade.color.DARK_BLUE,
         )
 
     """

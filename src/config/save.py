@@ -7,12 +7,17 @@ class Save:
     def __init__(self, path: Path) -> None:
         self.path = path
         save: dict = JSONProcessor.read(self.path)
+        self.money = save["money"]
         self.have_saved_game: bool = save["have_saved_game"]
-        self.first_level_records = save["first_level_records"]
-        self.second_level_records = save["second_level_records"]
-        self.third_level_records = save["third_level_records"]
-        self.fourth_level_records = save["fourth_level_records"]
-        self.fifth_level_records = save["fifth_level_records"]
+        self.first_level_records: int = save["first_level_records"]
+        self.second_level_records: int = save["second_level_records"]
+        self.third_level_records: int = save["third_level_records"]
+        self.fourth_level_records: int = save["fourth_level_records"]
+        self.fifth_level_records: int = save["fifth_level_records"]
+
+        self.turret_speed: int = save["turret_speed"]
+        self.turret_damage: int = save["turret_damage"]
+        self.turret_distans: int = save["turret_distans"]
 
     def save(self) -> None:
         JSONProcessor.write(

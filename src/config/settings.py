@@ -4,6 +4,7 @@ from config.path import Path
 from config.save import Save
 from config.screen import Screen
 from config.text import Text
+from config.turrets import Turrets
 
 
 class Settings:
@@ -12,5 +13,6 @@ class Settings:
         self.path: Path = Path()
         self.text: Text = Text()
         self.save: Save = Save(self.path.save)
+        self.turrets: Turrets = Turrets(self.save)
         self.enemies: Enemies = Enemies(self.path)
         self.level: LevelValues = LevelValues()

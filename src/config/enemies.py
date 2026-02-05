@@ -40,9 +40,6 @@ class Boss:
 class Enemies:
     def __init__(self, path: ConfigPath) -> None:
         self.path = path
-        self.restart()
-
-    def restart(self) -> None:
         self.common = Common(self.path.common)
         self.powerful = Powerful(self.path.powerful)
         self.fast = Fast(self.path.fast)
