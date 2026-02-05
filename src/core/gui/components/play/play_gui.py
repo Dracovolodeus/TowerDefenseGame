@@ -1,6 +1,5 @@
 import arcade
 from arcade.gui import UIManager, UIAnchorLayout, UIBoxLayout, UILabel
-
 import config as cfg
 from core.gui.components.play.tower_button import TowerButton
 
@@ -69,3 +68,19 @@ class PlayGUI:
             arcade.color.RED,
             10,
         )
+
+    def draw_menu(self):
+        arcade.draw_lbwh_rectangle_filled(
+            cfg.settings.screen.width - 600,
+            0,
+            600,
+            cfg.settings.screen.height,
+            arcade.color.DARK_BLUE,
+        )
+
+    """
+    TODO Сделать логику отрисовки GUI во время игры.
+    Тебе нужно сделать:
+    2) Кликабельность платформ (core/play/components/level/какае-то_директория/platform.py ---> НЕ ГОТОВО!!!!!!!!!!!
+    Чтобы когда тыкаешь на нее ЛКМ вылазила менюшка с выбором башни. Менюшку пиши тут, вызывай методом, желательно сделать проверку на деньгу
+    """

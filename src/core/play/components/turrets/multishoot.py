@@ -9,7 +9,7 @@ from core.play.managers.bullet import BulletManager
 from core.play.managers.enemy import EnemyManager
 
 
-class Base(BaseTurret):
+class Multishoot(BaseTurret):
     def __init__(
         self,
         texture_pool: TexturePool,
@@ -28,23 +28,31 @@ class Base(BaseTurret):
             position,
             enemy_manager,
             bullet_manager,
-            cfg.settings.turrets.base.damage,
-            cfg.settings.turrets.base.distans,
-            cfg.settings.turrets.base.delay,
+            cfg.settings.turrets.multishoot.damage,
+            cfg.settings.turrets.multishoot.distans,
+            cfg.settings.turrets.multishoot.delay,
         )
         self.__co_circle_for_shoot = self._create_coordinate_circle(25)
 
     def _create_bullet(self):
-        self._bullet_manager.add_bullet(
-            CommonBullet(
-                position=self.__co_circle_for_shoot[int(self._angle)],
-                angle=self._angle,
-                speed=cfg.settings.turrets.base.bullet_speed,
-                damage=self.damage,
-                enemies_list=self._enemy_manager.get_all_enemies(),
-                texture=self.bullet_texture,
+        self.__co_circle_for_shoot[int(self._angle)]
+        for pos, angle in (
+            (self.__co_circle_for_shoot[int(self._angle) - 10], self._angle - 10),
+            (self.__co_circle_for_shoot[int(self._angle) - 5], self._angle - 5),
+            (self.__co_circle_for_shoot[int(self._angle)], self._angle),
+            (self.__co_circle_for_shoot[int(self._angle) + 5], self._angle + 5),
+            (self.__co_circle_for_shoot[int(self._angle) + 10], self._angle + 10),
+        ):
+            self._bullet_manager.add_bullet(
+                CommonBullet(
+                    position=pos,
+                    angle=angle,
+                    speed=cfg.settings.turrets.multishoot.bullet_speed,
+                    damage=self.damage,
+                    enemies_list=self._enemy_manager.get_all_enemies(),
+                    texture=self.bullet_texture,
+                )
             )
-        )
 
     @override
     def update(self, delta_time: float) -> None:

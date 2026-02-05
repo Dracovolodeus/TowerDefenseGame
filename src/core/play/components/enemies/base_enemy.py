@@ -33,6 +33,12 @@ class BaseEnemy(arcade.Sprite):
         if self.health == 0:
             self.kill()
 
+    def get_path(self) -> float | int:
+        return self._path
+
+    def get_position(self) -> tuple[float, float]:
+        return self.center_x, self.center_y
+
     def _move(self, delta_time: float) -> None:
         if not self._route:
             self.deal_damage_game()

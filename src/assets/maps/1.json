@@ -23,7 +23,7 @@
     {
       "type": "common",
       "start": {
-        "health": 100
+        "health": 1
       },
       "gain": {
         "speed": {
@@ -41,7 +41,7 @@
     {
       "type": "powerful",
       "start": {
-        "health": 100
+        "health": 15
       },
       "gain": {
         "speed": {
@@ -53,44 +53,6 @@
           "step": 5,
           "value": 3,
           "count": 3
-        }
-      }
-    },
-    {
-      "type": "fast",
-      "frequency": 2,
-      "start": {
-        "health": 50
-      },
-      "gain": {
-        "speed": {
-          "step": 25,
-          "value": 25,
-          "count": 3
-        },
-        "health": {
-          "step": 5,
-          "value": 2,
-          "count": -1
-        }
-      }
-    },
-    {
-      "type": "boss",
-      "frequency": 10,
-      "start": {
-        "health": 250
-      },
-      "gain": {
-        "speed": {
-          "step": 10,
-          "value": 10,
-          "count": 3
-        },
-        "health": {
-          "step": 10,
-          "value": 50,
-          "count": -1
         }
       }
     }
@@ -105,19 +67,19 @@
       "1": {
         "0": {
           "enemy_type": "common",
-          "enemy_quantity": 3,
-          "density": 0.25
+          "enemy_quantity": 15,
+          "density": 0.05
         },
         "1": {
           "enemy_type": "powerful",
-          "enemy_quantity": 1,
+          "enemy_quantity": 5,
           "density": 0.35
         }
       },
       "2": {
         "1": {
           "enemy_type": "common",
-          "enemy_quantity": 3,
+          "enemy_quantity": 15,
           "density": 0.05
         }
       }

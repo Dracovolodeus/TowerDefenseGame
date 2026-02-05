@@ -1,7 +1,7 @@
 import arcade
-import config as cfg
 from arcade.gui import UIAnchorLayout, UIBoxLayout, UIFlatButton
 
+import config as cfg
 from core.gui.views.base import BaseView
 
 

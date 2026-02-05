@@ -3,13 +3,13 @@ from typing import override
 
 import config as cfg
 from core.images.texture_pool import TexturePool
-from core.play.components.bullets.common_bullet import CommonBullet
+from core.play.components.bullets.self_guided_bullet import SelfGuidedBullet
 from core.play.components.turrets.base_turret import BaseTurret
 from core.play.managers.bullet import BulletManager
 from core.play.managers.enemy import EnemyManager
 
 
-class Base(BaseTurret):
+class Venom(BaseTurret):
     def __init__(
         self,
         texture_pool: TexturePool,
@@ -28,21 +28,20 @@ class Base(BaseTurret):
             position,
             enemy_manager,
             bullet_manager,
-            cfg.settings.turrets.base.damage,
-            cfg.settings.turrets.base.distans,
-            cfg.settings.turrets.base.delay,
+            cfg.settings.turrets.venom.damage,
+            cfg.settings.turrets.venom.distans,
+            cfg.settings.turrets.venom.delay,
         )
         self.__co_circle_for_shoot = self._create_coordinate_circle(25)
 
     def _create_bullet(self):
         self._bullet_manager.add_bullet(
-            CommonBullet(
+            SelfGuidedBullet(
                 position=self.__co_circle_for_shoot[int(self._angle)],
-                angle=self._angle,
-                speed=cfg.settings.turrets.base.bullet_speed,
+                speed=cfg.settings.turrets.venom.bullet_speed,
                 damage=self.damage,
-                enemies_list=self._enemy_manager.get_all_enemies(),
                 texture=self.bullet_texture,
+                target=self._get_last_enemy(),
             )
         )
 

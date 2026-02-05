@@ -9,7 +9,7 @@ from core.play.managers.bullet import BulletManager
 from core.play.managers.enemy import EnemyManager
 
 
-class Base(BaseTurret):
+class Sniper(BaseTurret):
     def __init__(
         self,
         texture_pool: TexturePool,
@@ -28,9 +28,9 @@ class Base(BaseTurret):
             position,
             enemy_manager,
             bullet_manager,
-            cfg.settings.turrets.base.damage,
-            cfg.settings.turrets.base.distans,
-            cfg.settings.turrets.base.delay,
+            cfg.settings.turrets.sniper.damage,
+            cfg.settings.turrets.sniper.distans,
+            cfg.settings.turrets.sniper.delay,
         )
         self.__co_circle_for_shoot = self._create_coordinate_circle(25)
 
@@ -39,7 +39,7 @@ class Base(BaseTurret):
             CommonBullet(
                 position=self.__co_circle_for_shoot[int(self._angle)],
                 angle=self._angle,
-                speed=cfg.settings.turrets.base.bullet_speed,
+                speed=cfg.settings.turrets.sniper.bullet_speed,
                 damage=self.damage,
                 enemies_list=self._enemy_manager.get_all_enemies(),
                 texture=self.bullet_texture,

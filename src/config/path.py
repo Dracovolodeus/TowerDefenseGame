@@ -58,7 +58,9 @@ class Path:
         # Maps
         self.__maps = self.__assets / "maps"
 
-    def get_turret(self, turtype: Literal["base", "sniper"]) -> Turret:
+    def get_turret(
+        self, turtype: Literal["base", "sniper", "multishoot", "shotgun", "venom"]
+    ) -> Turret:
         return Turret(
             base=self.__turrets / turtype / "base.png",
             bullet=self.__turrets / turtype / "bullet.png",
