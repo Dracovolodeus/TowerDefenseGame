@@ -52,7 +52,7 @@ class EnemyManager:
                     death_func=death_func,
                 )
             case "powerful":
-                enemy = CommonEnemy(
+                enemy = PowerfulEnemy(
                     speed=speed,
                     health=health,
                     texture_pool=self.__texture_pool,
@@ -63,7 +63,7 @@ class EnemyManager:
                     death_func=death_func,
                 )
             case "fast":
-                enemy = CommonEnemy(
+                enemy = FastEnemy(
                     speed=speed,
                     health=health,
                     texture_pool=self.__texture_pool,
@@ -74,7 +74,7 @@ class EnemyManager:
                     death_func=death_func,
                 )
             case "regenerating":
-                enemy = CommonEnemy(
+                enemy = RegeneratingEnemy(
                     speed=speed,
                     health=health,
                     texture_pool=self.__texture_pool,
@@ -85,7 +85,7 @@ class EnemyManager:
                     death_func=death_func,
                 )
             case "boss":
-                enemy = CommonEnemy(
+                enemy = BossEnemy(
                     speed=speed,
                     health=health,
                     texture_pool=self.__texture_pool,
