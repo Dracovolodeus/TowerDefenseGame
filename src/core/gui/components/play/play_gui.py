@@ -52,7 +52,7 @@ class PlayGUI:
             on_select=self.select_turret
         ))
 
-        box.add(UILabel(text="Мульти выстрел", font_size=16))
+        box.add(UILabel(text="Мультистрел", font_size=16))
 
         box.add(TowerButton(
             base_texture_path=multishoot_turret.base,

@@ -81,9 +81,10 @@ class Level(arcade.View):
         self.__bullet_manager.update()
         self.__turrets_manager.update(delta_time)
 
-        if self.level_gui.turret_placed is not None:
+        if self.level_gui.turret_placed is not None and self.level_gui.curr_position not in self.turrets_positions:
             self.add_turret(self.level_gui.turret_placed, self.level_gui.curr_position)
-            self.level_gui.turret_placed = None
+            self.turrets_positions.append(self.level_gui.curr_position)
+        self.level_gui.turret_placed = None
 
     def deal_damage(self, value: int = 1) -> None:
         self.health -= value if self.health - value >= 0 else self.health
