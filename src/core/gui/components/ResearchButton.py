@@ -25,17 +25,3 @@ class ResearchButton(UIFlatButton):
         content_layout.add(self.text_label.with_padding(right=12))
 
         self.add(content_layout.with_padding(top=8, bottom=8))
-
-    def on_click(self, event: UIOnClickEvent):
-        new_style = {
-            "normal": UIFlatButton.UIStyle(bg=arcade.color.GRAY_BLUE),
-            "hover": UIFlatButton.UIStyle(),
-            "press": UIFlatButton.UIStyle(),
-            "disabled": UIFlatButton.UIStyle(),
-        }
-        self.style = new_style
-        self.style["normal"].bg = GRAY_BLUE
-        self.style["hover"].bg = GRAY_BLUE
-
-        print("сделай логику исследования😡😡😡")
-        # TODO Логика исследования

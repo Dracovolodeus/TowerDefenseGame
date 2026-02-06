@@ -22,12 +22,16 @@ class Save:
     def save(self) -> None:
         JSONProcessor.write(
             {
+                "money": self.money,
                 "have_saved_game": self.have_saved_game,
                 "first_level_records": self.first_level_records,
                 "second_level_records": self.second_level_records,
                 "third_level_records": self.third_level_records,
                 "fourth_level_records": self.fourth_level_records,
                 "fifth_level_records": self.fifth_level_records,
+                "turret_speed": self.turret_speed,
+                "turret_damage": self.turret_damage,
+                "turret_distans": self.turret_distans,
             },
             self.path,
         )

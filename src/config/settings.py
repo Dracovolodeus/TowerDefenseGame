@@ -1,6 +1,7 @@
 from config.enemies import Enemies
 from config.level_values import LevelValues
 from config.path import Path
+from config.research_upgrade import ResearchUpgrade
 from config.save import Save
 from config.screen import Screen
 from config.text import Text
@@ -16,3 +17,4 @@ class Settings:
         self.turrets: Turrets = Turrets(self.save)
         self.enemies: Enemies = Enemies(self.path)
         self.level: LevelValues = LevelValues()
+        self.research_upgrade: ResearchUpgrade = ResearchUpgrade()
