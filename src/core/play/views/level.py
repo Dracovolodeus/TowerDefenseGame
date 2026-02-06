@@ -14,8 +14,7 @@ class Level(BaseView):
     def __init__(self, gui_manager, texture_pool: TexturePool, level_number: int):
         super().__init__(gui_manager, texture_pool)
         self.show_menu = False
-        self.level_map = LevelMap(texture_pool, level_number)
-
+        self.level_map = LevelMap(texture_pool, level_number, self.add_level_money, self.add_research_money)
         self.__bullet_manager = BulletManager()
         self.__enemy_manager = EnemyManager(
             level=self,
@@ -93,7 +92,7 @@ class Level(BaseView):
         self.level_gui.manager.draw()
         if self.show_menu and not self.level_gui.is_paused:
             arcade.draw_texture_rect(
-                arcade.load_texture(self.level_gui.backgroundPath),
+                self._texture_pool.get_texture(self.level_gui.backgroundPath),
                 arcade.XYWH(
                     cfg.settings.screen.width - 250,
                     cfg.settings.screen.height // 2,
@@ -149,6 +148,12 @@ class Level(BaseView):
             self.level_gui.is_paused = True
             cfg.settings.save.money += self.__research_money
             cfg.settings.save.save()
+
+    def add_level_money(self, value: int) -> None:
+        self.level_gui.change_money(value)
+
+    def add_research_money(self, value: int) -> None:
+        self.__research_money += value
 
     def __set_wave_gen(self, need_next: bool = True) -> None:
         self.current_wave += 1

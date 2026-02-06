@@ -19,7 +19,7 @@ class PlayGUI:
 
         self.backgroundPath = cfg.settings.path.tower_menu
 
-        self._money = 100
+        self._money = 225
         self._wave = 0
 
         self.manager = UIManager()

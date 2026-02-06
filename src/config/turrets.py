@@ -5,48 +5,48 @@ from config.save import Save
 
 @dataclass
 class Base:
-    damage: float = 3
-    delay: float = 0.7
+    damage: float = 4
+    delay: float = 0.5
     distans: float = 512
     bullet_speed: float = 375
-    price: int = 0
+    price: int = 50
 
 
 @dataclass
 class Sniper:
-    damage: float = 7
+    damage: float = 20
     delay: float = 2.35
     distans: float = 2048
     bullet_speed: float = 1792
-    price: int = 0
+    price: int = 75
 
 
 @dataclass
 class Multishoot:
-    damage: float = 2
-    delay: float = 0.7
+    damage: float = 4
+    delay: float = 1.75
     distans: float = 640
     bullet_speed: float = 370
-    price: int = 0
+    price: int = 60
 
 
 @dataclass
 class Shotgun:
-    damage: float = 3
-    delay: float = 1
+    damage: float = 4
+    delay: float = 1.25
     distans: float = 512
     bullet_speed: float = 256
-    price: int = 0
     blast_range: float = 96
+    price: int = 60
 
 
 @dataclass
 class Venom:
-    damage: float = 5
-    delay: float = 1.8
+    damage: float = 23
+    delay: float = 1.5
     distans: float = 384
-    price: int = 0
-    bullet_speed: float = 80
+    bullet_speed: float = 85
+    price: int = 70
 
 
 class Turrets:

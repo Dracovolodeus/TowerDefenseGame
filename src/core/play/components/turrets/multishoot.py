@@ -35,7 +35,6 @@ class Multishoot(BaseTurret):
         self.__co_circle_for_shoot = self._create_coordinate_circle(25)
 
     def _create_bullet(self):
-        self.__co_circle_for_shoot[int(self._angle)]
         try:
             for pos, angle in (
                 (self.__co_circle_for_shoot[int(self._angle) - 10], self._angle - 10),

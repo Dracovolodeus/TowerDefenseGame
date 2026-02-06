@@ -14,6 +14,7 @@ class BaseEnemy(arcade.Sprite):
         texture_pool: TexturePool,
         texture_path: Path,
         deal_damage_game: Callable,
+        death_func: Callable,
         position: tuple[int, int],
         route: list[tuple[int, int]],
     ) -> None:
@@ -23,6 +24,7 @@ class BaseEnemy(arcade.Sprite):
         self._texture_pool = texture_pool
         self._route = route
         self.deal_damage_game = deal_damage_game
+        self.death_func = death_func
         self.center_x, self.center_y = position
         self._path = 0
         self._segment_progress = 0
@@ -31,6 +33,7 @@ class BaseEnemy(arcade.Sprite):
     def deal_damage(self, value: float | int) -> None:
         self.health -= value if self.health - value >= 0 else self.health
         if self.health == 0:
+            self.death_func()
             self.kill()
 
     def get_path(self) -> float | int:
