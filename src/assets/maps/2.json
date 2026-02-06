@@ -1,0 +1,85 @@
+{
+  "delay": 10,
+  "need_count_1": 10,
+  "need_count_2": 25,
+  "need_count_3": 50,
+  "money_percent": 0.325,
+  "research_money_percent": 0.075,
+  "money_add_wave": 35,
+  "research_add_wave": 10,
+  "map": [
+    [0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    [1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1],
+    [1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1],
+    [1, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1],
+    [1, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+    [1, 2, 1, 2, 0, 2, 2, 2, 2, 2, 0, 2],
+    [3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4]
+  ],
+  "path": [
+    [640, 2],
+    [256, 1],
+    [128, 2],
+    [1024, 1],
+    [128, -2],
+    [128, 1],
+    [256, -2],
+    [384, -1],
+    [128, 2],
+    [512, -1],
+    [128, -2],
+    [256, -1],
+    [384, -2],
+    [1152, 1]
+  ],
+  "enemies": [
+    {
+      "type": "common",
+      "start": {
+        "health": 30
+      },
+      "gain": {
+        "speed": {
+          "step": 10,
+          "value": 20,
+          "count": 3
+        },
+        "health": {
+          "step": 5,
+          "value": 12,
+          "count": -1
+        }
+      }
+    },
+    {
+      "type": "powerful",
+      "start": {
+        "health": 45
+      },
+      "gain": {
+        "speed": {
+          "step": 25,
+          "value": 25,
+          "count": 3
+        },
+        "health": {
+          "step": 10,
+          "value": 40,
+          "count": 10
+        }
+      }
+    }
+  ],
+  "waves": {
+    "path": {
+      "start": "1",
+    },
+    "schemas": {
+      "1": {
+          "enemy_type": "common",
+          "enemy_quantity": 10,
+          "density": 0.35
+      }
+    }
+  }
+}
