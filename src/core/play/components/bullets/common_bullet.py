@@ -1,4 +1,5 @@
 import math
+import config as cfg
 
 import arcade
 
@@ -24,7 +25,8 @@ class CommonBullet(arcade.Sprite):
         self.enemies_list = enemies_list
         self.change_y = self.speed * math.cos(angle_rad)
         self.change_x = self.speed * math.sin(angle_rad)
-        self.change_angle = 100
+        self.change_angle = 250
+        self.__path = 0
 
     def __check_collision(self) -> None:
         values = arcade.check_for_collision_with_list(self, self.enemies_list)
@@ -35,5 +37,8 @@ class CommonBullet(arcade.Sprite):
     def update(self, delta_time: float = 1 / 60, *args, **kwargs) -> None:
         self.center_x += self.change_x * delta_time
         self.center_y += self.change_y * delta_time
+        self.__path += (self.change_x + self.change_y) * delta_time
+        if self.__path > math.sqrt(cfg.settings.screen.width ** 2 + cfg.settings.screen.height ** 2) * 1.5:
+            self.kill()
         self.angle = (self.angle + self.change_angle * delta_time) % 360
         self.__check_collision()
