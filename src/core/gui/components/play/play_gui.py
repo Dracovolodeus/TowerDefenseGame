@@ -6,9 +6,11 @@ from core.gui.components.play.tower_button import TowerButton
 
 
 class PlayGUI:
-    def __init__(self, health):
+    def __init__(self, health, on_skip):
         self.cur_health = health
         self.max_health = health
+
+        self.on_skip = on_skip
 
         self.is_paused = False
 
@@ -21,6 +23,7 @@ class PlayGUI:
         self.manager.enable()
 
         self._money = 100
+        self._wave = 0
 
         self.menu_manager = UIManager()
         self.menu_manager.enable()
@@ -36,6 +39,17 @@ class PlayGUI:
         self.multishoot_price = cfg.settings.turrets.multishoot.price
         self.shotgun_price = cfg.settings.turrets.shotgun.price
         self.venom_price = cfg.settings.turrets.venom.price
+
+
+
+        self.skip_wave_button = arcade.gui.UIFlatButton(
+            text="Пропустить кд волны",
+            width=175,
+            height=50,
+            x=cfg.settings.screen.width - 250,
+            y=25,
+        )
+        self.skip_wave_button.on_click = self.on_skip
 
         box = UIBoxLayout(
             vertical=True,
@@ -111,12 +125,14 @@ class PlayGUI:
         )
         button.on_click = self.toogle_pause
 
-        self.text_money = UILabel(f"Деньги: {self._money}", x=25, height=25)
+        self.text_money = UILabel(f"Деньги: {self._money}", x=25, y=25)
+        self.wave_text = UILabel(f"Волна: {self._wave}", x=175, y=25)
 
         self.manager.add(button)
-
-        self.menu_manager.add(button)
         self.manager.add(self.text_money)
+        self.manager.add(self.wave_text)
+        self.manager.add(self.skip_wave_button)
+
         self.menu_manager.add(box)
 
     def select_turret(self, turret_name: str):
@@ -126,7 +142,7 @@ class PlayGUI:
         arcade.draw_line(
             300,
             10,
-            1000 * (self.cur_health / self.max_health),
+            max(300, 1000 * (self.cur_health / self.max_health)),
             10,
             arcade.color.GREEN,
             10,
@@ -181,3 +197,8 @@ class PlayGUI:
             ),
         }
         self.change_money(price_for_sale_dict[name])
+
+    def set_wave(self, wave):
+        self._wave = wave
+        self.wave_text.text = f"Волна: {self._wave}"
+

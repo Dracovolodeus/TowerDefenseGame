@@ -30,8 +30,9 @@ class Level(arcade.View):
         self.__wave_time_counter = 0
         self.__wave_gen_alive = False
         self.health = cfg.settings.level.health
-        self.level_gui = PlayGUI(cfg.settings.level.health)
+        self.level_gui = PlayGUI(cfg.settings.level.health, self.skip_wave_cooldown)
         self.turrets_positions = {}
+        self.current_wave = 0
 
     def on_show_view(self) -> None: ...
 
@@ -40,6 +41,9 @@ class Level(arcade.View):
     def on_mouse_press(
         self, x: int, y: int, button: int, modifiers: int
     ) -> bool | None:
+        if self.level_gui.manager.on_mouse_press(x, y, button, modifiers):
+            return
+
         if button == arcade.MOUSE_BUTTON_LEFT:
             pressed_tile = arcade.get_sprites_at_point(
                 (x, y), self.level_map.get_platform_tiles()
@@ -128,6 +132,8 @@ class Level(arcade.View):
             print("GAME OFF")  # TODO
 
     def __set_wave_gen(self, need_next: bool = True) -> None:
+        self.current_wave += 1
+        self.level_gui.set_wave(self.current_wave)
         self.__wave_gen = self.level_map.next_wave(self.__enemy_manager.add_enemy)
         self.__wave_gen_alive = True
         self.__wave_time_counter = 0
@@ -141,3 +147,8 @@ class Level(arcade.View):
     def sell_tower(self, position):
         self.__turrets_manager.delete_turrets(position)
         self.level_gui.sell_turret(self.turrets_positions[position])
+
+    def skip_wave_cooldown(self, event=None):
+        if not self.__wave_gen_alive:
+            self.__wave_time_counter = cfg.settings.level.wave_delta_time
+            self.__set_wave_gen()
