@@ -9,7 +9,7 @@ class TowerButton(UIFlatButton):
         *,
         base_texture_path: str,
         tower_texture_path: str,
-        size=96,
+        size=80,
         turret_name: str,
         on_select: Callable[[str], None],
         **kwargs

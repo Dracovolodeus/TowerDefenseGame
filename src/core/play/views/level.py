@@ -31,6 +31,7 @@ class Level(arcade.View):
         self.__wave_gen_alive = False
         self.health = cfg.settings.level.health
         self.level_gui = PlayGUI(cfg.settings.level.health)
+        self.turrets_positions = []
 
     def on_show_view(self) -> None:
         ...
@@ -82,6 +83,7 @@ class Level(arcade.View):
 
         if self.level_gui.turret_placed is not None:
             self.add_turret(self.level_gui.turret_placed, self.level_gui.curr_position)
+            self.level_gui.turret_placed = None
 
     def deal_damage(self, value: int = 1) -> None:
         self.health -= value if self.health - value >= 0 else self.health
@@ -98,4 +100,4 @@ class Level(arcade.View):
 
     def add_turret(self, name, position):
         """TODO Ждать пока self.__turrets_manager.add_turret() поменяет свою структуру"""
-        # self.__turrets_manager.add_turret(name, position)
+        self.__turrets_manager.add_turret(name, position)

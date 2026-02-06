@@ -17,19 +17,24 @@ class PlayGUI:
         self.manager = UIManager()
         self.manager.enable()
 
+        base_turret = cfg.settings.path.get_turret("base")
+        sniper_turret = cfg.settings.path.get_turret("sniper")
+        multishoot_turret = cfg.settings.path.get_turret("multishoot")
+        shotgun_turret = cfg.settings.path.get_turret("shotgun")
+        venom_turret = cfg.settings.path.get_turret("venom")
+
         box = UIBoxLayout(
             vertical=True,
             x=cfg.settings.screen.width - 500,
             y=0,
             width=500,
             height=cfg.settings.screen.height,
-            space_between=30
+            space_between=8
         )
 
-        base_turret = cfg.settings.path.get_turret("base")
-        sniper_turret = cfg.settings.path.get_turret("sniper")
 
-        box.add(UILabel(text="Обычная", font_size=20))
+
+        box.add(UILabel(text="Обычная", font_size=16).with_padding(top=128))
 
         box.add(TowerButton(
             base_texture_path=base_turret.base,
@@ -38,12 +43,39 @@ class PlayGUI:
             on_select=self.select_turret
         ))
 
-        box.add(UILabel(text="Снайпер", font_size=20))
+        box.add(UILabel(text="Снайпер", font_size=16))
 
         box.add(TowerButton(
             base_texture_path=sniper_turret.base,
             tower_texture_path=sniper_turret.tower,
             turret_name="sniper",
+            on_select=self.select_turret
+        ))
+
+        box.add(UILabel(text="Мульти выстрел", font_size=16))
+
+        box.add(TowerButton(
+            base_texture_path=multishoot_turret.base,
+            tower_texture_path=multishoot_turret.tower,
+            turret_name="multishoot",
+            on_select=self.select_turret
+        ))
+
+        box.add(UILabel(text="Дробовик", font_size=16))
+
+        box.add(TowerButton(
+            base_texture_path=shotgun_turret.base,
+            tower_texture_path=shotgun_turret.tower,
+            turret_name="shotgun",
+            on_select=self.select_turret
+        ))
+
+        box.add(UILabel(text="Веном", font_size=20))
+
+        box.add(TowerButton(
+            base_texture_path=venom_turret.base,
+            tower_texture_path=venom_turret.tower,
+            turret_name="venom",
             on_select=self.select_turret
         ))
 
