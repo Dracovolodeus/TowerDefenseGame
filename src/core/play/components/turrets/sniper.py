@@ -35,18 +35,21 @@ class Sniper(BaseTurret):
         self.__co_circle_for_shoot = self._create_coordinate_circle(25)
 
     def _create_bullet(self):
-        self._bullet_manager.add_bullet(
-            CommonBullet(
-                position=self.__co_circle_for_shoot[int(self._angle)],
-                angle=self._angle,
-                speed=cfg.settings.turrets.sniper.bullet_speed,
-                damage=self.damage,
-                enemies_list=self._enemy_manager.get_all_enemies(),
-                texture=self.bullet_texture,
+        try:
+            self._bullet_manager.add_bullet(
+                CommonBullet(
+                    position=self.__co_circle_for_shoot[int(self._angle)],
+                    angle=self._angle,
+                    speed=cfg.settings.turrets.sniper.bullet_speed,
+                    damage=self.damage,
+                    enemies_list=self._enemy_manager.get_all_enemies(),
+                    texture=self.bullet_texture,
+                )
             )
-        )
+        except:
+            ...
 
     @override
     def update(self, delta_time: float) -> None:
-        self.delay += delta_time
+        self.delay_count += delta_time
         self._shoot()

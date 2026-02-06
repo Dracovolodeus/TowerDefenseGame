@@ -36,25 +36,28 @@ class Multishoot(BaseTurret):
 
     def _create_bullet(self):
         self.__co_circle_for_shoot[int(self._angle)]
-        for pos, angle in (
-            (self.__co_circle_for_shoot[int(self._angle) - 10], self._angle - 10),
-            (self.__co_circle_for_shoot[int(self._angle) - 5], self._angle - 5),
-            (self.__co_circle_for_shoot[int(self._angle)], self._angle),
-            (self.__co_circle_for_shoot[int(self._angle) + 5], self._angle + 5),
-            (self.__co_circle_for_shoot[int(self._angle) + 10], self._angle + 10),
-        ):
-            self._bullet_manager.add_bullet(
-                CommonBullet(
-                    position=pos,
-                    angle=angle,
-                    speed=cfg.settings.turrets.multishoot.bullet_speed,
-                    damage=self.damage,
-                    enemies_list=self._enemy_manager.get_all_enemies(),
-                    texture=self.bullet_texture,
+        try:
+            for pos, angle in (
+                (self.__co_circle_for_shoot[int(self._angle) - 10], self._angle - 10),
+                (self.__co_circle_for_shoot[int(self._angle) - 5], self._angle - 5),
+                (self.__co_circle_for_shoot[int(self._angle)], self._angle),
+                (self.__co_circle_for_shoot[int(self._angle) + 5], self._angle + 5),
+                (self.__co_circle_for_shoot[int(self._angle) + 10], self._angle + 10),
+            ):
+                self._bullet_manager.add_bullet(
+                    CommonBullet(
+                        position=pos,
+                        angle=angle,
+                        speed=cfg.settings.turrets.multishoot.bullet_speed,
+                        damage=self.damage,
+                        enemies_list=self._enemy_manager.get_all_enemies(),
+                        texture=self.bullet_texture,
+                    )
                 )
-            )
+        except:
+            ...
 
     @override
     def update(self, delta_time: float) -> None:
-        self.delay += delta_time
+        self.delay_count += delta_time
         self._shoot()
