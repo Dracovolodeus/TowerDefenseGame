@@ -9,6 +9,7 @@ class Base:
     delay: float = 0.4
     distans: float = 512
     bullet_speed: float = 375
+    price: int = 0
 
 
 @dataclass
@@ -17,6 +18,7 @@ class Sniper:
     delay: float = 0.85
     distans: float = 2048
     bullet_speed: float = 1792
+    price: int = 0
 
 
 @dataclass
@@ -25,6 +27,7 @@ class Multishoot:
     delay: float = 0.35
     distans: float = 640
     bullet_speed: float = 370
+    price: int = 0
 
 
 @dataclass
@@ -33,6 +36,7 @@ class Shotgun:
     delay: float = 0.65
     distans: float = 512
     bullet_speed: float = 256
+    price: int = 0
     blast_range: float = 96
 
 
@@ -41,6 +45,7 @@ class Venom:
     damage: float = 5
     delay: float = 0.59
     distans: float = 384
+    price: int = 0
     bullet_speed: float = 80
 
 
@@ -51,6 +56,7 @@ class Turrets:
         self.multishoot: Multishoot = Multishoot()
         self.shotgun: Shotgun = Shotgun()
         self.venom: Venom = Venom()
+        self.sale_coeff: float = 0.75
 
         self.base.delay = self.base.delay * (1 - save.turret_speed / 100)
         self.sniper.delay = self.sniper.delay * (1 - save.turret_speed / 100)
