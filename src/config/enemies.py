@@ -13,7 +13,7 @@ class Common:
 @dataclass
 class Powerful:
     texture_path: Path
-    speed: float = 500
+    speed: float = 50
 
 
 @dataclass
