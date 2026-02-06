@@ -5,4 +5,3 @@ from dataclasses import dataclass
 class Text:
     researches: str = "Исследования"
     start: str = "Выбрать уровень"
-    continue_: str = "Продолжить"
