@@ -31,7 +31,7 @@ class Level(arcade.View):
         self.__wave_gen_alive = False
         self.health = cfg.settings.level.health
         self.level_gui = PlayGUI(cfg.settings.level.health)
-        self.turrets_positions = []
+        self.turrets_positions = {}
 
     def on_show_view(self) -> None:
         ...
@@ -49,6 +49,12 @@ class Level(arcade.View):
                 self.show_menu = True
             else:
                 self.show_menu = False
+        if button == arcade.MOUSE_BUTTON_RIGHT:
+            pressed_tile = arcade.get_sprites_at_point((x, y), self.level_map.get_platform_tiles())
+            if pressed_tile and (pressed_tile[0].center_x, pressed_tile[0].center_y) in self.turrets_positions:
+                position = (pressed_tile[0].center_x, pressed_tile[0].center_y)
+                self.sell_tower(position),
+                del self.turrets_positions[position]
 
     def on_draw(self) -> None:
         self.clear()
@@ -58,14 +64,18 @@ class Level(arcade.View):
         self.__bullet_manager.draw()
         self.__turrets_manager.draw_towers()
         self.level_gui.draw_hp()
-        if self.show_menu:
+        self.level_gui.manager.draw()
+        if self.show_menu and not self.level_gui.is_paused:
             arcade.draw_texture_rect(
                 arcade.load_texture(self.level_gui.backgroundPath),
                 arcade.XYWH(
                     cfg.settings.screen.width - 250, cfg.settings.screen.height // 2, 500, cfg.settings.screen.height
                 )
             )
-            self.level_gui.manager.draw()
+            self.level_gui.menu_manager.draw()
+        if self.level_gui.is_paused:
+            arcade.draw_lbwh_rectangle_filled(0 , 0, cfg.settings.screen.width, cfg.settings.screen.height, (0, 0, 0, 128))
+
 
     def __spawn_enemies_if_need(self, delta_time: float) -> None:
         if self.__wave_gen_alive:
@@ -76,15 +86,16 @@ class Level(arcade.View):
             self.__wave_time_counter += delta_time
 
     def on_update(self, delta_time: float) -> bool | None:
-        self.__spawn_enemies_if_need(delta_time)
-        self.__enemy_manager.update(delta_time)
-        self.__bullet_manager.update()
-        self.__turrets_manager.update(delta_time)
+        if not self.level_gui.is_paused:
+            self.__spawn_enemies_if_need(delta_time)
+            self.__enemy_manager.update(delta_time)
+            self.__bullet_manager.update()
+            self.__turrets_manager.update(delta_time)
 
-        if self.level_gui.turret_placed is not None and self.level_gui.curr_position not in self.turrets_positions:
-            self.add_turret(self.level_gui.turret_placed, self.level_gui.curr_position)
-            self.turrets_positions.append(self.level_gui.curr_position)
-        self.level_gui.turret_placed = None
+            if self.level_gui.turret_placed is not None and self.level_gui.curr_position not in self.turrets_positions:
+                self.add_turret(self.level_gui.turret_placed, self.level_gui.curr_position)
+                self.turrets_positions[self.level_gui.curr_position] = self.level_gui.turret_placed
+            self.level_gui.turret_placed = None
 
     def deal_damage(self, value: int = 1) -> None:
         self.health -= value if self.health - value >= 0 else self.health
@@ -100,5 +111,10 @@ class Level(arcade.View):
             next(self.__wave_gen)
 
     def add_turret(self, name, position):
-        """TODO Ждать пока self.__turrets_manager.add_turret() поменяет свою структуру"""
-        self.__turrets_manager.add_turret(name, position)
+        if self.level_gui.can_be_buyed(name):
+            self.__turrets_manager.add_turret(name, position)
+
+    def sell_tower(self, position):
+        self.__turrets_manager.delete_turrets(position)
+        self.level_gui.sell_turret(self.turrets_positions[position])
+

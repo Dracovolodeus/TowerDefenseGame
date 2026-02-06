@@ -1,5 +1,5 @@
 import arcade
-from arcade.gui import UIManager, UIAnchorLayout, UIBoxLayout, UILabel
+from arcade.gui import UIManager, UIAnchorLayout, UIBoxLayout, UILabel, UIFlatButton
 import config as cfg
 from core.gui.components.play.tower_button import TowerButton
 
@@ -9,6 +9,8 @@ class PlayGUI:
         self.cur_health = health
         self.max_health = health
 
+        self.is_paused = False
+
         self.turret_placed = None
         self.curr_position = (0, 0)
 
@@ -17,11 +19,22 @@ class PlayGUI:
         self.manager = UIManager()
         self.manager.enable()
 
+        self._money = 100
+
+        self.menu_manager = UIManager()
+        self.menu_manager.enable()
+
         base_turret = cfg.settings.path.get_turret("base")
         sniper_turret = cfg.settings.path.get_turret("sniper")
         multishoot_turret = cfg.settings.path.get_turret("multishoot")
         shotgun_turret = cfg.settings.path.get_turret("shotgun")
         venom_turret = cfg.settings.path.get_turret("venom")
+
+        self.base_price = cfg.settings.turrets.base.price
+        self.sniper_price = cfg.settings.turrets.sniper.price
+        self.multishoot_price = cfg.settings.turrets.multishoot.price
+        self.shotgun_price = cfg.settings.turrets.shotgun.price
+        self.venom_price = cfg.settings.turrets.venom.price
 
         box = UIBoxLayout(
             vertical=True,
@@ -32,9 +45,7 @@ class PlayGUI:
             space_between=8
         )
 
-
-
-        box.add(UILabel(text="Обычная", font_size=16).with_padding(top=128))
+        box.add(UILabel(text=f"Обычная (Цена: {self.base_price})", font_size=16).with_padding(top=128))
 
         box.add(TowerButton(
             base_texture_path=base_turret.base,
@@ -43,7 +54,7 @@ class PlayGUI:
             on_select=self.select_turret
         ))
 
-        box.add(UILabel(text="Снайпер", font_size=16))
+        box.add(UILabel(text=f"Снайпер (Цена: {self.sniper_price})", font_size=16))
 
         box.add(TowerButton(
             base_texture_path=sniper_turret.base,
@@ -52,7 +63,7 @@ class PlayGUI:
             on_select=self.select_turret
         ))
 
-        box.add(UILabel(text="Мультистрел", font_size=16))
+        box.add(UILabel(text=f"Мультистрел (Цена: {self.multishoot_price})", font_size=16))
 
         box.add(TowerButton(
             base_texture_path=multishoot_turret.base,
@@ -61,7 +72,7 @@ class PlayGUI:
             on_select=self.select_turret
         ))
 
-        box.add(UILabel(text="Дробовик", font_size=16))
+        box.add(UILabel(text=f"Дробовик (Цена: {self.shotgun_price})", font_size=16))
 
         box.add(TowerButton(
             base_texture_path=shotgun_turret.base,
@@ -70,7 +81,7 @@ class PlayGUI:
             on_select=self.select_turret
         ))
 
-        box.add(UILabel(text="Веном", font_size=20))
+        box.add(UILabel(text=f"Веном (Цена: {self.venom_price})", font_size=20))
 
         box.add(TowerButton(
             base_texture_path=venom_turret.base,
@@ -79,7 +90,16 @@ class PlayGUI:
             on_select=self.select_turret
         ))
 
-        self.manager.add(box)
+        button = UIFlatButton(x=25, y=cfg.settings.screen.height - 75, width=50, height=50, text="||")
+        button.on_click = self.toogle_pause
+
+        self.text_money = UILabel(f"Деньги: {self._money}", x=25, height=25)
+
+        self.manager.add(button)
+
+        self.menu_manager.add(button)
+        self.manager.add(self.text_money)
+        self.menu_manager.add(box)
 
     def select_turret(self, turret_name: str):
         self.turret_placed = turret_name
@@ -110,9 +130,38 @@ class PlayGUI:
             arcade.color.DARK_BLUE,
         )
 
-    """
-    TODO Сделать логику отрисовки GUI во время игры.
-    Тебе нужно сделать:
-    2) Кликабельность платформ (core/play/components/level/какае-то_директория/platform.py ---> НЕ ГОТОВО!!!!!!!!!!!
-    Чтобы когда тыкаешь на нее ЛКМ вылазила менюшка с выбором башни. Менюшку пиши тут, вызывай методом, желательно сделать проверку на деньгу
-    """
+    def toogle_pause(self, event=None):
+        self.is_paused = not self.is_paused
+
+    def change_money(self, value):  # value может быть отрицательным и положительным
+        self._money += value
+        self.text_money.text = f"Деньги: {self._money}"
+
+    def can_be_buyed(self, name):
+        price_dict = {
+            "base": self.base_price,
+            "sniper": self.sniper_price,
+            "shotgun": self.shotgun_price,
+            "venom": self.venom_price,
+            "multishoot": self.multishoot_price,
+        }
+        if self._money >= price_dict[name]:
+            self.change_money(-price_dict[name])
+            return True
+        else:
+            return False
+
+    def sell_turret(self, name):
+        price_for_sale_dict = {
+            "base": round(self.base_price * cfg.settings.turrets.sale_coeff),
+            "sniper": round(self.sniper_price * cfg.settings.turrets.sale_coeff),
+            "shotgun": round(self.shotgun_price * cfg.settings.turrets.sale_coeff),
+            "venom": round(self.venom_price * cfg.settings.turrets.sale_coeff),
+            "multishoot": round(self.multishoot_price * cfg.settings.turrets.sale_coeff),
+        }
+        self.change_money(price_for_sale_dict[name])
+
+
+
+
+
