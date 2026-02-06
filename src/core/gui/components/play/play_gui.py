@@ -129,28 +129,14 @@ class PlayGUI:
 
         self.loose_anchor = UIAnchorLayout()
         loose_box = UIBoxLayout(vertical=True)
-        loose_box.add(
-            UILabel(
-                f"Вы дошли до {self._wave} волны",
-                font_size=36
-            )
-        )
-        loose_box.add(
-            UILabel(
-                f"Вы заработали {0} монет",  # TODO
-                font_size=36
-            )
-        )
-        loose_button = UIFlatButton(
-                text="Выйти в выбор уровней",
-                width=200
-            )
+        loose_box.add(UILabel(f"Вы дошли до {self._wave} волны", font_size=36))
+        self.result_money_label = UILabel(f"Вы заработали {0} монет", font_size=36)
+        loose_box.add(self.result_money_label)
+        loose_button = UIFlatButton(text="Выйти в выбор уровней", width=200)
 
         loose_button.on_click = lambda event: gui_manager.set_level_selection_menu()
 
-        loose_box.add(
-            loose_button
-        )
+        loose_box.add(loose_button)
 
         self.loose_anchor.add(loose_box)
         self.loose_manager.add(self.loose_anchor)
@@ -164,6 +150,9 @@ class PlayGUI:
 
     def select_turret(self, turret_name: str):
         self.turret_placed = turret_name
+
+    def set_result_money(self, value: int) -> None:
+        self.result_money_label.text = f"Вы заработали {value} монет"
 
     def draw_hp(self):
         arcade.draw_line(

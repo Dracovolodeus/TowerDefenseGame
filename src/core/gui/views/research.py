@@ -87,15 +87,15 @@ class ResearchView(BaseView):
         box.add(attack_box)
         box.add(length_box)
         box.add(speed_box)
-        self._manager.add(
-            UILabel(
-                f"Количество монет: {0}",  # TODO
-                font_size=16,
-                x=cfg.settings.screen.width - 300,
-                y=cfg.settings.screen.height - 75
-            )
+
+        self.money_label = UILabel(
+            f"Количество монет: {cfg.settings.save.money}",
+            font_size=16,
+            x=cfg.settings.screen.width - 300,
+            y=cfg.settings.screen.height - 75,
         )
 
+        self._manager.add(self.money_label)
 
         anchor_layout.add(box)
         self._manager.add(back_button)
@@ -117,3 +117,4 @@ class ResearchView(BaseView):
     def __bye_upgrade(self, type_: Literal["damage", "distans", "delay"]) -> None:
         if self.research_controller.bye_upgrade(type_):
             self.__set_active_buttons()
+            self.money_label.text = f"Количество монет: {cfg.settings.save.money}"

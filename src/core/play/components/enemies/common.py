@@ -18,7 +18,14 @@ class CommonEnemy(BaseEnemy):
         death_func: Callable,
     ) -> None:
         super().__init__(
-            speed, health, texture_pool, texture_path, deal_damage_game, death_func, position, route
+            speed,
+            health,
+            texture_pool,
+            texture_path,
+            deal_damage_game,
+            death_func,
+            position,
+            route,
         )
 
     def update(self, delta_time: float = 1 / 60, *args, **kwargs) -> None:

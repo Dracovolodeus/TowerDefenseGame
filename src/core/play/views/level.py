@@ -14,7 +14,9 @@ class Level(BaseView):
     def __init__(self, gui_manager, texture_pool: TexturePool, level_number: int):
         super().__init__(gui_manager, texture_pool)
         self.show_menu = False
-        self.level_map = LevelMap(texture_pool, level_number, self.add_level_money, self.add_research_money)
+        self.level_map = LevelMap(
+            texture_pool, level_number, self.add_level_money, self.add_research_money
+        )
         self.__bullet_manager = BulletManager()
         self.__enemy_manager = EnemyManager(
             level=self,
@@ -23,7 +25,9 @@ class Level(BaseView):
             position=self.level_map.get_portal_position(),
         )
         self.__turrets_manager = TurretsManager(
-            texture_pool, enemy_manager=self.__enemy_manager, bullet_manager=self.__bullet_manager
+            texture_pool,
+            enemy_manager=self.__enemy_manager,
+            bullet_manager=self.__bullet_manager,
         )
 
         self.__wave_time_counter = 0
@@ -34,7 +38,9 @@ class Level(BaseView):
         self.current_wave = 0
         self.__research_money = 0
 
-        self.level_gui = PlayGUI(cfg.settings.level.health, self.skip_wave_cooldown, gui_manager)
+        self.level_gui = PlayGUI(
+            cfg.settings.level.health, self.skip_wave_cooldown, gui_manager
+        )
 
     def setup_widgets(self) -> None:
         if not self._widgets_initialized:
@@ -145,6 +151,7 @@ class Level(BaseView):
         if self.health == 0:
             self.level_gui.manager.disable()
             self.level_gui.loose_manager.enable()
+            self.set_result_money = self.__research_money
             self.level_gui.is_paused = True
             cfg.settings.save.money += self.__research_money
             cfg.settings.save.save()

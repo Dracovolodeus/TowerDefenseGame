@@ -20,7 +20,14 @@ class BossEnemy(BaseEnemy):
         death_func: Callable,
     ) -> None:
         super().__init__(
-            speed, health, texture_pool, texture_path, deal_damage_game, death_func, position, route
+            speed,
+            health,
+            texture_pool,
+            texture_path,
+            deal_damage_game,
+            death_func,
+            position,
+            route,
         )
 
     def deal_damage(self, value: float | int) -> None:

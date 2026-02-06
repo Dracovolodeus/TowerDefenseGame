@@ -1,5 +1,5 @@
-from collections.abc import Generator
 import random
+from collections.abc import Generator
 from typing import Callable
 
 import arcade
@@ -12,14 +12,32 @@ from utils.json_func import JSONProcessor
 
 
 class LevelMap:
-    def __init__(self, texture_pool: TexturePool, level_number: int, add_level_money: Callable, add_research_money: Callable):
+    def __init__(
+        self,
+        texture_pool: TexturePool,
+        level_number: int,
+        add_level_money: Callable,
+        add_research_money: Callable,
+    ):
         level: dict = JSONProcessor.read(cfg.settings.path.get_level(level_number))
         self.__wave_schemas: dict[str, dict[str, str | int | float]] = level["waves"][
             "schemas"
         ]
-        self.__add_level_money, self.__add_research_money = add_level_money, add_research_money
-        self.__money_percent, self.__research_money_percent, = level["money_percent"], level["research_money_percent"]
-        self.__money_add_wave, self.__research_add_wave = level["money_add_wave"], level["research_add_wave"]
+        self.__add_level_money, self.__add_research_money = (
+            add_level_money,
+            add_research_money,
+        )
+        (
+            self.__money_percent,
+            self.__research_money_percent,
+        ) = (
+            level["money_percent"],
+            level["research_money_percent"],
+        )
+        self.__money_add_wave, self.__research_add_wave = (
+            level["money_add_wave"],
+            level["research_add_wave"],
+        )
         self.__wave_path: dict[str, str] = level["waves"]["path"]
         self.__path: list[tuple[int, int]] = level["path"]
         self.__texture_pool = texture_pool
@@ -67,7 +85,7 @@ class LevelMap:
                             enemy_type=enemy.type,
                             speed=enemy.speed,
                             health=enemy.health,
-                            death_func=self.__enemy_death_func
+                            death_func=self.__enemy_death_func,
                         )
                         break
                 while density_count < density:
@@ -170,4 +188,3 @@ class LevelMap:
             self.__add_level_money(3)
         if random.random() >= self.__research_money_percent:
             self.__add_research_money(1)
-

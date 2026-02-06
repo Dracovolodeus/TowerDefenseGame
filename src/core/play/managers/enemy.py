@@ -1,4 +1,4 @@
-from typing import Literal, Callable
+from typing import Callable, Literal
 
 import arcade
 
@@ -37,7 +37,7 @@ class EnemyManager:
         enemy_type: Literal["common", "powerful", "fast", "regenerating", "boss"],
         speed: float,
         health: float,
-        death_func: Callable
+        death_func: Callable,
     ) -> None:
         match enemy_type:
             case "common":
