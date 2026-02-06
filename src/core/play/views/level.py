@@ -33,19 +33,22 @@ class Level(arcade.View):
         self.level_gui = PlayGUI(cfg.settings.level.health)
         self.turrets_positions = []
 
-    def on_show_view(self) -> None:
-        ...
+    def on_show_view(self) -> None: ...
 
-    def on_hide_view(self) -> None:
-        ...
+    def on_hide_view(self) -> None: ...
 
     def on_mouse_press(
-            self, x: int, y: int, button: int, modifiers: int
+        self, x: int, y: int, button: int, modifiers: int
     ) -> bool | None:
         if button == arcade.MOUSE_BUTTON_LEFT:
-            pressed_tile = arcade.get_sprites_at_point((x, y), self.level_map.get_platform_tiles())
+            pressed_tile = arcade.get_sprites_at_point(
+                (x, y), self.level_map.get_platform_tiles()
+            )
             if pressed_tile:
-                self.level_gui.curr_position = (pressed_tile[0].center_x, pressed_tile[0].center_y)
+                self.level_gui.curr_position = (
+                    pressed_tile[0].center_x,
+                    pressed_tile[0].center_y,
+                )
                 self.show_menu = True
             else:
                 self.show_menu = False
@@ -62,8 +65,11 @@ class Level(arcade.View):
             arcade.draw_texture_rect(
                 arcade.load_texture(self.level_gui.backgroundPath),
                 arcade.XYWH(
-                    cfg.settings.screen.width - 250, cfg.settings.screen.height // 2, 500, cfg.settings.screen.height
-                )
+                    cfg.settings.screen.width - 250,
+                    cfg.settings.screen.height // 2,
+                    500,
+                    cfg.settings.screen.height,
+                ),
             )
             self.level_gui.manager.draw()
 
@@ -81,7 +87,10 @@ class Level(arcade.View):
         self.__bullet_manager.update()
         self.__turrets_manager.update(delta_time)
 
-        if self.level_gui.turret_placed is not None and self.level_gui.curr_position not in self.turrets_positions:
+        if (
+            self.level_gui.turret_placed is not None
+            and self.level_gui.curr_position not in self.turrets_positions
+        ):
             self.add_turret(self.level_gui.turret_placed, self.level_gui.curr_position)
             self.turrets_positions.append(self.level_gui.curr_position)
         self.level_gui.turret_placed = None

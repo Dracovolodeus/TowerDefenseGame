@@ -1,6 +1,7 @@
-import arcade
-from arcade.gui import UIImage, UIFlatButton, UIOnClickEvent
 from typing import Callable
+
+import arcade
+from arcade.gui import UIFlatButton, UIImage, UIOnClickEvent
 
 
 class TowerButton(UIFlatButton):
@@ -12,7 +13,7 @@ class TowerButton(UIFlatButton):
         size=80,
         turret_name: str,
         on_select: Callable[[str], None],
-        **kwargs
+        **kwargs,
     ):
         super().__init__(width=size, height=size, **kwargs)
 
