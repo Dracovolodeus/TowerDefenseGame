@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Callable
 
 import arcade
 
@@ -37,6 +37,7 @@ class EnemyManager:
         enemy_type: Literal["common", "powerful", "fast", "regenerating", "boss"],
         speed: float,
         health: float,
+        death_func: Callable
     ) -> None:
         match enemy_type:
             case "common":
@@ -48,6 +49,7 @@ class EnemyManager:
                     deal_damage_game=self.__level.deal_damage,
                     position=self.__position,
                     route=self.__route.copy(),
+                    death_func=death_func,
                 )
             case "powerful":
                 enemy = CommonEnemy(
@@ -58,6 +60,7 @@ class EnemyManager:
                     deal_damage_game=self.__level.deal_damage,
                     position=self.__position,
                     route=self.__route.copy(),
+                    death_func=death_func,
                 )
             case "fast":
                 enemy = CommonEnemy(
@@ -68,6 +71,7 @@ class EnemyManager:
                     deal_damage_game=self.__level.deal_damage,
                     position=self.__position,
                     route=self.__route.copy(),
+                    death_func=death_func,
                 )
             case "regenerating":
                 enemy = CommonEnemy(
@@ -78,6 +82,7 @@ class EnemyManager:
                     deal_damage_game=self.__level.deal_damage,
                     position=self.__position,
                     route=self.__route.copy(),
+                    death_func=death_func,
                 )
             case "boss":
                 enemy = CommonEnemy(
@@ -88,6 +93,7 @@ class EnemyManager:
                     deal_damage_game=self.__level.deal_damage,
                     position=self.__position,
                     route=self.__route.copy(),
+                    death_func=death_func,
                 )
         self.__enemies_list.append(enemy)
 

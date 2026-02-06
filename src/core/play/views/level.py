@@ -14,7 +14,7 @@ class Level(arcade.View):
         super().__init__()
         self.show_menu = False
         self._texture_pool = texture_pool
-        self.level_map = LevelMap(texture_pool, level_number)
+        self.level_map = LevelMap(texture_pool, level_number, self.add_level_money, self.add_research_money)
         self.__bullet_manager = BulletManager()
         self.__enemy_manager: EnemyManager = EnemyManager(
             level=self,
@@ -34,6 +34,8 @@ class Level(arcade.View):
         self.__wave_delta_time = self.level_map.get_wave_delta()
         self.turrets_positions = {}
         self.current_wave = 0
+        self.__money = 100
+        self.__research_money = 0
 
     def on_show_view(self) -> None: ...
 
@@ -131,6 +133,12 @@ class Level(arcade.View):
         self.level_gui.cur_health = self.health
         if self.health == 0:
             print("GAME OFF")  # TODO
+
+    def add_level_money(self, value: int) -> None:
+        self.level_gui.change_money(value)
+
+    def add_research_money(self, value: int) -> None:
+        self.__research_money += value
 
     def __set_wave_gen(self, need_next: bool = True) -> None:
         self.current_wave += 1

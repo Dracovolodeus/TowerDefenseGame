@@ -40,8 +40,6 @@ class PlayGUI:
         self.shotgun_price = cfg.settings.turrets.shotgun.price
         self.venom_price = cfg.settings.turrets.venom.price
 
-
-
         self.skip_wave_button = arcade.gui.UIFlatButton(
             text="Пропустить кд волны",
             width=175,
@@ -201,4 +199,3 @@ class PlayGUI:
     def set_wave(self, wave):
         self._wave = wave
         self.wave_text.text = f"Волна: {self._wave}"
-

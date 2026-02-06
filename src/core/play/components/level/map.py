@@ -1,4 +1,5 @@
 from collections.abc import Generator
+import random
 from typing import Callable
 
 import arcade
@@ -11,11 +12,14 @@ from utils.json_func import JSONProcessor
 
 
 class LevelMap:
-    def __init__(self, texture_pool: TexturePool, level_number: int):
+    def __init__(self, texture_pool: TexturePool, level_number: int, add_level_money: Callable, add_research_money: Callable):
         level: dict = JSONProcessor.read(cfg.settings.path.get_level(level_number))
         self.__wave_schemas: dict[str, dict[str, str | int | float]] = level["waves"][
             "schemas"
         ]
+        self.__add_level_money, self.__add_research_money = add_level_money, add_research_money
+        self.__money_percent, self.__research_money_percent, = level["money_percent"], level["research_money_percent"]
+        self.__money_add_wave, self.__research_add_wave = level["money_add_wave"], level["research_add_wave"]
         self.__wave_path: dict[str, str] = level["waves"]["path"]
         self.__path: list[tuple[int, int]] = level["path"]
         self.__texture_pool = texture_pool
@@ -44,6 +48,9 @@ class LevelMap:
     def get_current_wave(self) -> int:
         return self.__wave_count
 
+    def get_platform_tiles(self):
+        return self.__platform_tiles
+
     def next_wave(self, add_enemy: Callable) -> Generator[bool, float | None, None]:
         self.__wave_count += 1
         self.__set_next_wave_scheme()
@@ -60,12 +67,15 @@ class LevelMap:
                             enemy_type=enemy.type,
                             speed=enemy.speed,
                             health=enemy.health,
+                            death_func=self.__enemy_death_func
                         )
                         break
                 while density_count < density:
                     delta_time = yield True
                     if not (delta_time is None):
                         density_count += delta_time
+        self.__add_level_money(self.__money_add_wave)
+        self.__add_research_money(self.__research_add_wave)
         yield False
 
     def __setup(self, map_: list[list[int]], enemies: list[dict]) -> None:
@@ -119,9 +129,6 @@ class LevelMap:
                 )
             )
 
-    def get_platform_tiles(self):
-        return self.__platform_tiles
-
     def __set_next_wave_scheme(self) -> None:
         self.__current_wave_index = self.__wave_path[self.__current_wave_index]
         self.__current_wave_scheme = self.__wave_schemas[
@@ -157,3 +164,10 @@ class LevelMap:
                 )
             ):
                 enemy_info.speed += enemy_info.gain_speed_value
+
+    def __enemy_death_func(self) -> None:
+        if random.random() >= self.__money_percent:
+            self.__add_level_money(1)
+        if random.random() >= self.__research_money_percent:
+            self.__add_research_money(1)
+

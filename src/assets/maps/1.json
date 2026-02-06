@@ -3,6 +3,10 @@
   "need_count_1": 10,
   "need_count_2": 25,
   "need_count_3": 50,
+  "money_percent": 0.325,
+  "research_money_percent": 0.075,
+  "money_add_wave": 25,
+  "research_add_wave": 10,
   "map": [
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
