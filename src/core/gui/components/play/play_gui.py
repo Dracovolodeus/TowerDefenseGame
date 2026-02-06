@@ -22,7 +22,7 @@ class PlayGUI:
         self.manager = UIManager()
         self.manager.enable()
 
-        self._money = 100
+        self._money = 225
         self._wave = 0
 
         self.menu_manager = UIManager()

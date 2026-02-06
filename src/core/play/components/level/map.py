@@ -167,7 +167,7 @@ class LevelMap:
 
     def __enemy_death_func(self) -> None:
         if random.random() >= self.__money_percent:
-            self.__add_level_money(1)
+            self.__add_level_money(3)
         if random.random() >= self.__research_money_percent:
             self.__add_research_money(1)
 

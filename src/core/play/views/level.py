@@ -34,7 +34,6 @@ class Level(arcade.View):
         self.__wave_delta_time = self.level_map.get_wave_delta()
         self.turrets_positions = {}
         self.current_wave = 0
-        self.__money = 100
         self.__research_money = 0
 
     def on_show_view(self) -> None: ...
@@ -83,7 +82,7 @@ class Level(arcade.View):
         self.level_gui.manager.draw()
         if self.show_menu and not self.level_gui.is_paused:
             arcade.draw_texture_rect(
-                arcade.load_texture(self.level_gui.backgroundPath),
+                self._texture_pool.get_texture(self.level_gui.backgroundPath),
                 arcade.XYWH(
                     cfg.settings.screen.width - 250,
                     cfg.settings.screen.height // 2,
