@@ -33,25 +33,34 @@ class Level(arcade.View):
         self.level_gui = PlayGUI(cfg.settings.level.health)
         self.turrets_positions = {}
 
-    def on_show_view(self) -> None:
-        ...
+    def on_show_view(self) -> None: ...
 
-    def on_hide_view(self) -> None:
-        ...
+    def on_hide_view(self) -> None: ...
 
     def on_mouse_press(
-            self, x: int, y: int, button: int, modifiers: int
+        self, x: int, y: int, button: int, modifiers: int
     ) -> bool | None:
         if button == arcade.MOUSE_BUTTON_LEFT:
-            pressed_tile = arcade.get_sprites_at_point((x, y), self.level_map.get_platform_tiles())
+            pressed_tile = arcade.get_sprites_at_point(
+                (x, y), self.level_map.get_platform_tiles()
+            )
             if pressed_tile:
-                self.level_gui.curr_position = (pressed_tile[0].center_x, pressed_tile[0].center_y)
+                self.level_gui.curr_position = (
+                    pressed_tile[0].center_x,
+                    pressed_tile[0].center_y,
+                )
                 self.show_menu = True
             else:
                 self.show_menu = False
         if button == arcade.MOUSE_BUTTON_RIGHT:
-            pressed_tile = arcade.get_sprites_at_point((x, y), self.level_map.get_platform_tiles())
-            if pressed_tile and (pressed_tile[0].center_x, pressed_tile[0].center_y) in self.turrets_positions:
+            pressed_tile = arcade.get_sprites_at_point(
+                (x, y), self.level_map.get_platform_tiles()
+            )
+            if (
+                pressed_tile
+                and (pressed_tile[0].center_x, pressed_tile[0].center_y)
+                in self.turrets_positions
+            ):
                 position = (pressed_tile[0].center_x, pressed_tile[0].center_y)
                 self.sell_tower(position),
                 del self.turrets_positions[position]
@@ -69,13 +78,21 @@ class Level(arcade.View):
             arcade.draw_texture_rect(
                 arcade.load_texture(self.level_gui.backgroundPath),
                 arcade.XYWH(
-                    cfg.settings.screen.width - 250, cfg.settings.screen.height // 2, 500, cfg.settings.screen.height
-                )
+                    cfg.settings.screen.width - 250,
+                    cfg.settings.screen.height // 2,
+                    500,
+                    cfg.settings.screen.height,
+                ),
             )
             self.level_gui.menu_manager.draw()
         if self.level_gui.is_paused:
-            arcade.draw_lbwh_rectangle_filled(0 , 0, cfg.settings.screen.width, cfg.settings.screen.height, (0, 0, 0, 128))
-
+            arcade.draw_lbwh_rectangle_filled(
+                0,
+                0,
+                cfg.settings.screen.width,
+                cfg.settings.screen.height,
+                (0, 0, 0, 128),
+            )
 
     def __spawn_enemies_if_need(self, delta_time: float) -> None:
         if self.__wave_gen_alive:
@@ -92,9 +109,16 @@ class Level(arcade.View):
             self.__bullet_manager.update()
             self.__turrets_manager.update(delta_time)
 
-            if self.level_gui.turret_placed is not None and self.level_gui.curr_position not in self.turrets_positions:
-                self.add_turret(self.level_gui.turret_placed, self.level_gui.curr_position)
-                self.turrets_positions[self.level_gui.curr_position] = self.level_gui.turret_placed
+            if (
+                self.level_gui.turret_placed is not None
+                and self.level_gui.curr_position not in self.turrets_positions
+            ):
+                self.add_turret(
+                    self.level_gui.turret_placed, self.level_gui.curr_position
+                )
+                self.turrets_positions[self.level_gui.curr_position] = (
+                    self.level_gui.turret_placed
+                )
             self.level_gui.turret_placed = None
 
     def deal_damage(self, value: int = 1) -> None:
@@ -117,4 +141,3 @@ class Level(arcade.View):
     def sell_tower(self, position):
         self.__turrets_manager.delete_turrets(position)
         self.level_gui.sell_turret(self.turrets_positions[position])
-

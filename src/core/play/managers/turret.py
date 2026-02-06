@@ -14,10 +14,10 @@ from core.play.managers.enemy import EnemyManager
 
 class TurretsManager:
     def __init__(
-            self,
-            texture_pool: TexturePool,
-            enemy_manager: EnemyManager,
-            bullet_manager: BulletManager,
+        self,
+        texture_pool: TexturePool,
+        enemy_manager: EnemyManager,
+        bullet_manager: BulletManager,
     ) -> None:
         self.__turrets_list: list[BaseTurret] = []
         self.__texture_pool = texture_pool
@@ -37,9 +37,9 @@ class TurretsManager:
             turret.draw_tower()
 
     def add_turret(
-            self,
-            turret_type: Literal["base", "sniper", "multishoot", "shotgun", "venom"],
-            position: tuple[int, int],
+        self,
+        turret_type: Literal["base", "sniper", "multishoot", "shotgun", "venom"],
+        position: tuple[int, int],
     ) -> None:
         class_dict = {
             "base": Base,
@@ -61,11 +61,7 @@ class TurretsManager:
         )
         self.__turrets_list.append(turret)
 
-    def delete_turrets(
-            self,
-            position: tuple[int, int]
-    ) -> None:
+    def delete_turrets(self, position: tuple[int, int]) -> None:
         for turret in self.__turrets_list:
             if (turret.center_x, turret.center_y) == position:
                 self.__turrets_list.remove(turret)
-

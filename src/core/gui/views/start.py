@@ -16,14 +16,11 @@ class StartView(BaseView):
             )
             self.bg_x, self.bg_y = self.width // 2, self.height // 2
 
-            btn_continue = UIFlatButton(
-                x=1210, y=500, width=250, height=65, text=cfg.settings.text.continue_
-            )
             btn_level_selection = UIFlatButton(
-                x=1210, y=430, width=250, height=65, text=cfg.settings.text.start
+                x=1210, y=500, width=250, height=65, text=cfg.settings.text.start
             )
             btn_researches = UIFlatButton(
-                x=1210, y=360, width=250, height=65, text=cfg.settings.text.researches
+                x=1210, y=430, width=250, height=65, text=cfg.settings.text.researches
             )
             btn_level_selection.on_click = (
                 lambda event: self._gui_manager.set_level_selection_menu()
@@ -31,9 +28,7 @@ class StartView(BaseView):
             btn_researches.on_click = (
                 lambda event: self._gui_manager.set_researches_menu()
             )
-            btn_continue.disabled = not cfg.settings.save.have_saved_game
             self._manager.add(btn_level_selection)
-            self._manager.add(btn_continue)
             self._manager.add(btn_researches)
 
     def on_draw(self) -> None:

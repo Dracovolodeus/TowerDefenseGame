@@ -1,5 +1,6 @@
 import arcade
-from arcade.gui import UIManager, UIAnchorLayout, UIBoxLayout, UILabel, UIFlatButton
+from arcade.gui import UIAnchorLayout, UIBoxLayout, UIFlatButton, UILabel, UIManager
+
 import config as cfg
 from core.gui.components.play.tower_button import TowerButton
 
@@ -42,55 +43,72 @@ class PlayGUI:
             y=0,
             width=500,
             height=cfg.settings.screen.height,
-            space_between=8
+            space_between=8,
         )
 
-        box.add(UILabel(text=f"Обычная (Цена: {self.base_price})", font_size=16).with_padding(top=128))
-
-        box.add(TowerButton(
-            base_texture_path=base_turret.base,
-            tower_texture_path=base_turret.tower,
-            turret_name="base",
-            on_select=self.select_turret
-        ))
+        box.add(
+            UILabel(
+                text=f"Обычная (Цена: {self.base_price})", font_size=16
+            ).with_padding(top=128)
+        )
+        box.add(
+            TowerButton(
+                base_texture_path=base_turret.base,
+                tower_texture_path=base_turret.tower,
+                turret_name="base",
+                on_select=self.select_turret,
+            )
+        )
 
         box.add(UILabel(text=f"Снайпер (Цена: {self.sniper_price})", font_size=16))
 
-        box.add(TowerButton(
-            base_texture_path=sniper_turret.base,
-            tower_texture_path=sniper_turret.tower,
-            turret_name="sniper",
-            on_select=self.select_turret
-        ))
+        box.add(
+            TowerButton(
+                base_texture_path=sniper_turret.base,
+                tower_texture_path=sniper_turret.tower,
+                turret_name="sniper",
+                on_select=self.select_turret,
+            )
+        )
 
-        box.add(UILabel(text=f"Мультистрел (Цена: {self.multishoot_price})", font_size=16))
+        box.add(
+            UILabel(text=f"Мультистрел (Цена: {self.multishoot_price})", font_size=16)
+        )
 
-        box.add(TowerButton(
-            base_texture_path=multishoot_turret.base,
-            tower_texture_path=multishoot_turret.tower,
-            turret_name="multishoot",
-            on_select=self.select_turret
-        ))
+        box.add(
+            TowerButton(
+                base_texture_path=multishoot_turret.base,
+                tower_texture_path=multishoot_turret.tower,
+                turret_name="multishoot",
+                on_select=self.select_turret,
+            )
+        )
 
         box.add(UILabel(text=f"Дробовик (Цена: {self.shotgun_price})", font_size=16))
 
-        box.add(TowerButton(
-            base_texture_path=shotgun_turret.base,
-            tower_texture_path=shotgun_turret.tower,
-            turret_name="shotgun",
-            on_select=self.select_turret
-        ))
+        box.add(
+            TowerButton(
+                base_texture_path=shotgun_turret.base,
+                tower_texture_path=shotgun_turret.tower,
+                turret_name="shotgun",
+                on_select=self.select_turret,
+            )
+        )
 
         box.add(UILabel(text=f"Веном (Цена: {self.venom_price})", font_size=20))
 
-        box.add(TowerButton(
-            base_texture_path=venom_turret.base,
-            tower_texture_path=venom_turret.tower,
-            turret_name="venom",
-            on_select=self.select_turret
-        ))
+        box.add(
+            TowerButton(
+                base_texture_path=venom_turret.base,
+                tower_texture_path=venom_turret.tower,
+                turret_name="venom",
+                on_select=self.select_turret,
+            )
+        )
 
-        button = UIFlatButton(x=25, y=cfg.settings.screen.height - 75, width=50, height=50, text="||")
+        button = UIFlatButton(
+            x=25, y=cfg.settings.screen.height - 75, width=50, height=50, text="||"
+        )
         button.on_click = self.toogle_pause
 
         self.text_money = UILabel(f"Деньги: {self._money}", x=25, height=25)
@@ -106,7 +124,8 @@ class PlayGUI:
 
     def draw_hp(self):
         arcade.draw_line(
-            300, 10,
+            300,
+            10,
             1000 * (self.cur_health / self.max_health),
             10,
             arcade.color.GREEN,
@@ -157,11 +176,8 @@ class PlayGUI:
             "sniper": round(self.sniper_price * cfg.settings.turrets.sale_coeff),
             "shotgun": round(self.shotgun_price * cfg.settings.turrets.sale_coeff),
             "venom": round(self.venom_price * cfg.settings.turrets.sale_coeff),
-            "multishoot": round(self.multishoot_price * cfg.settings.turrets.sale_coeff),
+            "multishoot": round(
+                self.multishoot_price * cfg.settings.turrets.sale_coeff
+            ),
         }
         self.change_money(price_for_sale_dict[name])
-
-
-
-
-
