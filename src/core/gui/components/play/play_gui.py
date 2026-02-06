@@ -6,7 +6,7 @@ from core.gui.components.play.tower_button import TowerButton
 
 
 class PlayGUI:
-    def __init__(self, health, on_skip):
+    def __init__(self, health, on_skip, gui_manager):
         self.cur_health = health
         self.max_health = health
 
@@ -19,14 +19,15 @@ class PlayGUI:
 
         self.backgroundPath = cfg.settings.path.tower_menu
 
-        self.manager = UIManager()
-        self.manager.enable()
-
         self._money = 100
         self._wave = 0
 
+        self.manager = UIManager()
         self.menu_manager = UIManager()
+        self.loose_manager = UIManager()
+
         self.menu_manager.enable()
+        self.manager.enable()
 
         base_turret = cfg.settings.path.get_turret("base")
         sniper_turret = cfg.settings.path.get_turret("sniper")
@@ -39,8 +40,6 @@ class PlayGUI:
         self.multishoot_price = cfg.settings.turrets.multishoot.price
         self.shotgun_price = cfg.settings.turrets.shotgun.price
         self.venom_price = cfg.settings.turrets.venom.price
-
-
 
         self.skip_wave_button = arcade.gui.UIFlatButton(
             text="Пропустить кд волны",
@@ -128,6 +127,34 @@ class PlayGUI:
         self.text_money = UILabel(f"Деньги: {self._money}", x=25, y=25)
         self.wave_text = UILabel(f"Волна: {self._wave}", x=175, y=25)
 
+        self.loose_anchor = UIAnchorLayout()
+        loose_box = UIBoxLayout(vertical=True)
+        loose_box.add(
+            UILabel(
+                f"Вы дошли до {self._wave} волны",
+                font_size=36
+            )
+        )
+        loose_box.add(
+            UILabel(
+                f"Вы заработали {0} монет",  # TODO
+                font_size=36
+            )
+        )
+        loose_button = UIFlatButton(
+                text="Выйти в выбор уровней",
+                width=200
+            )
+
+        loose_button.on_click = lambda event: gui_manager.set_level_selection_menu()
+
+        loose_box.add(
+            loose_button
+        )
+
+        self.loose_anchor.add(loose_box)
+        self.loose_manager.add(self.loose_anchor)
+
         self.manager.add(button)
         self.manager.add(self.text_money)
         self.manager.add(self.wave_text)
@@ -201,4 +228,3 @@ class PlayGUI:
     def set_wave(self, wave):
         self._wave = wave
         self.wave_text.text = f"Волна: {self._wave}"
-

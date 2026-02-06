@@ -25,4 +25,4 @@ class GUIManager:
         self.__app.show_view(self.__research_menu)
 
     def set_level_screen(self, level_number: int) -> None:
-        self.__app.show_view(Level(self.__texture_pool, level_number))
+        self.__app.show_view(Level(self, self.__texture_pool, level_number))

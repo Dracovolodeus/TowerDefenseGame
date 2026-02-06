@@ -2,6 +2,7 @@ import arcade
 
 import config as cfg
 from core.gui.components.play.play_gui import PlayGUI
+from core.gui.views.base import BaseView
 from core.images.texture_pool import TexturePool
 from core.play.components.level.map import LevelMap
 from core.play.managers.bullet import BulletManager
@@ -9,35 +10,46 @@ from core.play.managers.enemy import EnemyManager
 from core.play.managers.turret import TurretsManager
 
 
-class Level(arcade.View):
-    def __init__(self, texture_pool: TexturePool, level_number: int) -> None:
-        super().__init__()
+class Level(BaseView):
+    def __init__(self, gui_manager, texture_pool: TexturePool, level_number: int):
+        super().__init__(gui_manager, texture_pool)
         self.show_menu = False
-        self._texture_pool = texture_pool
         self.level_map = LevelMap(texture_pool, level_number)
+
         self.__bullet_manager = BulletManager()
-        self.__enemy_manager: EnemyManager = EnemyManager(
+        self.__enemy_manager = EnemyManager(
             level=self,
-            texture_pool=self._texture_pool,
+            texture_pool=texture_pool,
             route=self.level_map.get_path(),
             position=self.level_map.get_portal_position(),
         )
         self.__turrets_manager = TurretsManager(
-            texture_pool,
-            enemy_manager=self.__enemy_manager,
-            bullet_manager=self.__bullet_manager,
+            texture_pool, enemy_manager=self.__enemy_manager, bullet_manager=self.__bullet_manager
         )
+
         self.__wave_time_counter = 0
         self.__wave_gen_alive = False
-        self.health = cfg.settings.level.health
-        self.level_gui = PlayGUI(cfg.settings.level.health, self.skip_wave_cooldown)
         self.__wave_delta_time = self.level_map.get_wave_delta()
+        self.health = cfg.settings.level.health
         self.turrets_positions = {}
         self.current_wave = 0
+        self.__research_money = 0
 
-    def on_show_view(self) -> None: ...
+        self.level_gui = PlayGUI(cfg.settings.level.health, self.skip_wave_cooldown, gui_manager)
 
-    def on_hide_view(self) -> None: ...
+    def setup_widgets(self) -> None:
+        if not self._widgets_initialized:
+            self._widgets_initialized = True
+            self._manager.add(self.level_gui.manager)
+            self._manager.add(self.level_gui.menu_manager)
+            self._manager.add(self.level_gui.loose_manager)
+
+    def on_show_view(self):
+        self.setup_widgets()
+        self._manager.enable()
+
+    def on_hide_view(self):
+        self._manager.disable()
 
     def on_mouse_press(
         self, x: int, y: int, button: int, modifiers: int
@@ -98,6 +110,8 @@ class Level(arcade.View):
                 cfg.settings.screen.height,
                 (0, 0, 0, 128),
             )
+        if self.level_gui.loose_manager._enabled:
+            self.level_gui.loose_manager.draw()
 
     def __spawn_enemies_if_need(self, delta_time: float) -> None:
         if self.__wave_gen_alive:
@@ -108,7 +122,7 @@ class Level(arcade.View):
             self.__wave_time_counter += delta_time
 
     def on_update(self, delta_time: float) -> bool | None:
-        if not self.level_gui.is_paused:
+        if not self.level_gui.is_paused and self.health != 0:
             self.__spawn_enemies_if_need(delta_time)
             self.__enemy_manager.update(delta_time)
             self.__bullet_manager.update()
@@ -130,7 +144,11 @@ class Level(arcade.View):
         self.health -= value if self.health - value >= 0 else self.health
         self.level_gui.cur_health = self.health
         if self.health == 0:
-            print("GAME OFF")  # TODO
+            self.level_gui.manager.disable()
+            self.level_gui.loose_manager.enable()
+            self.level_gui.is_paused = True
+            cfg.settings.save.money += self.__research_money
+            cfg.settings.save.save()
 
     def __set_wave_gen(self, need_next: bool = True) -> None:
         self.current_wave += 1

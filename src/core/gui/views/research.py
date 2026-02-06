@@ -87,6 +87,15 @@ class ResearchView(BaseView):
         box.add(attack_box)
         box.add(length_box)
         box.add(speed_box)
+        self._manager.add(
+            UILabel(
+                f"Количество монет: {0}",  # TODO
+                font_size=16,
+                x=cfg.settings.screen.width - 300,
+                y=cfg.settings.screen.height - 75
+            )
+        )
+
 
         anchor_layout.add(box)
         self._manager.add(back_button)
