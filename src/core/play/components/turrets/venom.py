@@ -35,17 +35,20 @@ class Venom(BaseTurret):
         self.__co_circle_for_shoot = self._create_coordinate_circle(25)
 
     def _create_bullet(self):
-        self._bullet_manager.add_bullet(
-            SelfGuidedBullet(
-                position=self.__co_circle_for_shoot[int(self._angle)],
-                speed=cfg.settings.turrets.venom.bullet_speed,
-                damage=self.damage,
-                texture=self.bullet_texture,
-                target=self._get_last_enemy(),
+        try:
+            self._bullet_manager.add_bullet(
+                SelfGuidedBullet(
+                    position=self.__co_circle_for_shoot[int(self._angle)],
+                    speed=cfg.settings.turrets.venom.bullet_speed,
+                    damage=self.damage,
+                    texture=self.bullet_texture,
+                    target=self._get_last_enemy(),
+                )
             )
-        )
+        except:
+            ...
 
     @override
     def update(self, delta_time: float) -> None:
-        self.delay += delta_time
+        self.delay_count += delta_time
         self._shoot()

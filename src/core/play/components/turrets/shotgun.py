@@ -35,19 +35,22 @@ class Shotgun(BaseTurret):
         self.__co_circle_for_shoot = self._create_coordinate_circle(25)
 
     def _create_bullet(self):
-        self._bullet_manager.add_bullet(
-            BlastBullet(
-                position=self.__co_circle_for_shoot[int(self._angle)],
-                angle=self._angle,
-                speed=cfg.settings.turrets.shotgun.bullet_speed,
-                damage=self.damage,
-                enemies_list=self._enemy_manager.get_all_enemies(),
-                texture=self.bullet_texture,
-                range_=cfg.settings.turrets.shotgun.blast_range,
+        try:
+            self._bullet_manager.add_bullet(
+                BlastBullet(
+                    position=self.__co_circle_for_shoot[int(self._angle)],
+                    angle=self._angle,
+                    speed=cfg.settings.turrets.shotgun.bullet_speed,
+                    damage=self.damage,
+                    enemies_list=self._enemy_manager.get_all_enemies(),
+                    texture=self.bullet_texture,
+                    range_=cfg.settings.turrets.shotgun.blast_range,
+                )
             )
-        )
+        except:
+            ...
 
     @override
     def update(self, delta_time: float) -> None:
-        self.delay += delta_time
+        self.delay_count += delta_time
         self._shoot()

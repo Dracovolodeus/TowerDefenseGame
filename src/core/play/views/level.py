@@ -31,6 +31,7 @@ class Level(arcade.View):
         self.__wave_gen_alive = False
         self.health = cfg.settings.level.health
         self.level_gui = PlayGUI(cfg.settings.level.health, self.skip_wave_cooldown)
+        self.__wave_delta_time = self.level_map.get_wave_delta()
         self.turrets_positions = {}
         self.current_wave = 0
 
@@ -101,7 +102,7 @@ class Level(arcade.View):
     def __spawn_enemies_if_need(self, delta_time: float) -> None:
         if self.__wave_gen_alive:
             self.__wave_gen_alive = self.__wave_gen.send(delta_time)
-        elif self.__wave_time_counter >= cfg.settings.level.wave_delta_time:
+        elif self.__wave_time_counter >= self.__wave_delta_time:
             self.__set_wave_gen()
         else:
             self.__wave_time_counter += delta_time
@@ -150,5 +151,4 @@ class Level(arcade.View):
 
     def skip_wave_cooldown(self, event=None):
         if not self.__wave_gen_alive:
-            self.__wave_time_counter = cfg.settings.level.wave_delta_time
             self.__set_wave_gen()

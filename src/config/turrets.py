@@ -1,12 +1,12 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from config.save import Save
 
 
 @dataclass
 class Base:
-    damage: float = 5
-    delay: float = 0.4
+    damage: float = 3
+    delay: float = 0.7
     distans: float = 512
     bullet_speed: float = 375
     price: int = 0
@@ -14,8 +14,8 @@ class Base:
 
 @dataclass
 class Sniper:
-    damage: float = 10
-    delay: float = 0.85
+    damage: float = 7
+    delay: float = 2.35
     distans: float = 2048
     bullet_speed: float = 1792
     price: int = 0
@@ -23,8 +23,8 @@ class Sniper:
 
 @dataclass
 class Multishoot:
-    damage: float = 5
-    delay: float = 0.35
+    damage: float = 2
+    delay: float = 0.7
     distans: float = 640
     bullet_speed: float = 370
     price: int = 0
@@ -32,8 +32,8 @@ class Multishoot:
 
 @dataclass
 class Shotgun:
-    damage: float = 5
-    delay: float = 0.65
+    damage: float = 3
+    delay: float = 1
     distans: float = 512
     bullet_speed: float = 256
     price: int = 0
@@ -43,7 +43,7 @@ class Shotgun:
 @dataclass
 class Venom:
     damage: float = 5
-    delay: float = 0.59
+    delay: float = 1.8
     distans: float = 384
     price: int = 0
     bullet_speed: float = 80

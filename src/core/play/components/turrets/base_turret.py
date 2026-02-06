@@ -47,6 +47,7 @@ class BaseTurret:
         self.tower_list = arcade.SpriteList()
         self.base_list.append(self.base)
         self.tower_list.append(self.tower)
+        self.delay_count = 0
 
     def update(self, delta_time: float) -> None: ...
 
@@ -107,6 +108,6 @@ class BaseTurret:
     def _create_bullet(self): ...
 
     def _shoot(self) -> None:
-        if self.delay >= 1 and self._aim_last_enemy():
+        if self.delay_count >= self.delay and self._aim_last_enemy():
             self._create_bullet()
-            self.delay = 0
+            self.delay_count = 0

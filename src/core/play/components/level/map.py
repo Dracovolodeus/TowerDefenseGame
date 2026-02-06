@@ -25,6 +25,7 @@ class LevelMap:
         self.__tiles = arcade.SpriteList()
         self.__platform_tiles = arcade.SpriteList()
         self.__set_next_wave_scheme()
+        self.__wave_delta_time = level["delay"]
         self.__setup(level["map"], level["enemies"])
 
     def draw(self) -> None:
@@ -33,6 +34,9 @@ class LevelMap:
 
     def get_path(self) -> list[tuple[int, int]]:
         return self.__path
+
+    def get_wave_delta(self) -> float:
+        return self.__wave_delta_time
 
     def get_portal_position(self) -> tuple[float | int, float | int]:
         return self.__portal.center_x, self.__portal.center_y
