@@ -44,8 +44,11 @@ class Path:
         self.__tiles = self.__images / "tiles"
         self.road = self.__tiles / "road.png"
         self.platform = self.__tiles / "platform.png"
-        self.portal = self.__tiles / "portal.png"
         self.base = self.__tiles / "base.png"
+        self.portal_0 = self.__tiles / "portal_0.png"
+        self.portal_1 = self.__tiles / "portal_1.png"
+        self.portal_2 = self.__tiles / "portal_2.png"
+        self.portal_3 = self.__tiles / "portal_3.png"
 
         # Enemies
         self.__enemies = self.__images / "enemies"

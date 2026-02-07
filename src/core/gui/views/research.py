@@ -77,11 +77,23 @@ class ResearchView(BaseView):
             speed_box.add(btn)
 
         attack_box.add(UILabel(f"Улучшить Урон", font_size=18))
-        attack_box.add(UILabel(f"({cfg.settings.research_upgrade.damage_price} монет)", font_size=18))
+        attack_box.add(
+            UILabel(
+                f"({cfg.settings.research_upgrade.damage_price} монет)", font_size=18
+            )
+        )
         speed_box.add(UILabel(f"Улучшить Скорострельность", font_size=18))
-        speed_box.add(UILabel(f"({cfg.settings.research_upgrade.speed_price} монет)", font_size=18))
+        speed_box.add(
+            UILabel(
+                f"({cfg.settings.research_upgrade.speed_price} монет)", font_size=18
+            )
+        )
         length_box.add(UILabel(f"Улучшить Дальность Стрельбы", font_size=18))
-        length_box.add(UILabel(f"({cfg.settings.research_upgrade.distans_price} монет)", font_size=18))
+        length_box.add(
+            UILabel(
+                f"({cfg.settings.research_upgrade.distans_price} монет)", font_size=18
+            )
+        )
 
         back_button = UIFlatButton(x=50, y=self.height - 100, text="<")
         back_button.on_click = lambda event: self._gui_manager.set_start_menu()

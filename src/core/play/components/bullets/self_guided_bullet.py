@@ -1,8 +1,8 @@
 import math
-import config as cfg
 
 import arcade
 
+import config as cfg
 from core.play.components.enemies.base_enemy import BaseEnemy
 
 
@@ -39,7 +39,11 @@ class SelfGuidedBullet(arcade.Sprite):
         self.center_x += self.speed * math.cos(angle_rad) * delta_time
         self.center_y += self.speed * math.sin(angle_rad) * delta_time
         self.__path += self.speed
-        if self.__path > math.sqrt(cfg.settings.screen.width ** 2 + cfg.settings.screen.height ** 2) * 1.5:
+        if (
+            self.__path
+            > math.sqrt(cfg.settings.screen.width**2 + cfg.settings.screen.height**2)
+            * 1.5
+        ):
             self.kill()
         self.angle = angle
         self.__check_collision()
