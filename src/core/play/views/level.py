@@ -142,12 +142,13 @@ class Level(BaseView):
                     self.level_gui.turret_placed is not None
                     and self.level_gui.curr_position not in self.turrets_positions
             ):
-                self.add_turret(
+                result = self.add_turret(
                     self.level_gui.turret_placed, self.level_gui.curr_position
                 )
-                self.turrets_positions[self.level_gui.curr_position] = (
-                    self.level_gui.turret_placed
-                )
+                if result:
+                    self.turrets_positions[self.level_gui.curr_position] = (
+                        self.level_gui.turret_placed
+                    )
             self.level_gui.turret_placed = None
 
     def deal_damage(self, value: int = 1) -> None:
@@ -180,6 +181,9 @@ class Level(BaseView):
     def add_turret(self, name, position):
         if self.show_menu and self.level_gui.can_be_buyed(name):
             self.__turrets_manager.add_turret(name, position)
+            return True
+        else:
+            return False
 
     def sell_tower(self, position):
         self.__turrets_manager.delete_turrets(position)
