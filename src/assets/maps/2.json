@@ -36,17 +36,17 @@
     {
       "type": "common",
       "start": {
-        "health": 30
+        "health": 45
       },
       "gain": {
         "speed": {
           "step": 10,
           "value": 20,
-          "count": 3
+          "count": 5
         },
         "health": {
-          "step": 5,
-          "value": 12,
+          "step": 3,
+          "value": 10,
           "count": -1
         }
       }
@@ -54,18 +54,54 @@
     {
       "type": "powerful",
       "start": {
-        "health": 45
+        "health": 70
       },
       "gain": {
         "speed": {
-          "step": 25,
+          "step": 10,
           "value": 25,
+          "count": 6
+        },
+        "health": {
+          "step": 4,
+          "value": 45,
+          "count": 25
+        }
+      }
+    },
+    {
+      "type": "fast",
+      "start": {
+        "health": 30
+      },
+      "gain": {
+        "speed": {
+          "step": 3,
+          "value": 15,
+          "count": 20
+        },
+        "health": {
+          "step": 3,
+          "value": 25,
+          "count": 25
+        }
+      }
+    },
+    {
+      "type": "regenerating",
+      "start": {
+        "health": 40
+      },
+      "gain": {
+        "speed": {
+          "step": 3,
+          "value": 10,
           "count": 3
         },
         "health": {
-          "step": 10,
+          "step": 5,
           "value": 40,
-          "count": 10
+          "count": 5
         }
       }
     }
@@ -73,12 +109,141 @@
   "waves": {
     "path": {
       "start": "1",
+      "1": "2",
+      "2": "3",
+      "3": "4",
+      "4": "5",
+      "5": "6",
+      "6": "7",
+      "7": "8",
+      "8": "2"
     },
     "schemas": {
       "1": {
+        "0": {
           "enemy_type": "common",
           "enemy_quantity": 10,
-          "density": 0.35
+          "density": 0.275
+        },
+        "1": {
+          "enemy_type": "common",
+          "enemy_quantity": 10,
+          "density": 0.375
+        },
+        "2": {
+          "enemy_type": "common",
+          "enemy_quantity": 5,
+          "density": 0.175
+        }
+      },
+      "2": {
+        "0": {
+          "enemy_type": "powerful",
+          "enemy_quantity": 3,
+          "density": 0.675
+        },
+        "1": {
+          "enemy_type": "fast",
+          "enemy_quantity": 10,
+          "density": 0.375
+        },
+        "2": {
+          "enemy_type": "common",
+          "enemy_quantity": 5,
+          "density": 0.175
+        }
+      },
+      "3": {
+        "0": {
+          "enemy_type": "powerful",
+          "enemy_quantity": 5,
+          "density": 0.7
+        },
+        "1": {
+          "enemy_type": "regenerating",
+          "enemy_quantity": 3,
+          "density": 0.375
+        },
+        "2": {
+          "enemy_type": "common",
+          "enemy_quantity": 25,
+          "density": 0.425
+        }
+      },
+      "4": {
+        "0": {
+          "enemy_type": "powerful",
+          "enemy_quantity": 2,
+          "density": 0.1
+        },
+        "1": {
+          "enemy_type": "regenerating",
+          "enemy_quantity": 5,
+          "density": 0.4
+        },
+        "2": {
+          "enemy_type": "common",
+          "enemy_quantity": 25,
+          "density": 0.425
+        },
+        "3": {
+          "enemy_type": "powerful",
+          "enemy_quantity": 5,
+          "density": 0.825
+        }
+      },
+      "5": {
+        "3": {
+          "enemy_type": "powerful",
+          "enemy_quantity": 2,
+          "density": 0.1
+        },
+        "2": {
+          "enemy_type": "regenerating",
+          "enemy_quantity": 5,
+          "density": 0.4
+        },
+        "1": {
+          "enemy_type": "common",
+          "enemy_quantity": 25,
+          "density": 0.425
+        },
+        "1": {
+          "enemy_type": "powerful",
+          "enemy_quantity": 5,
+          "density": 0.825
+        }
+      },
+      "6": {
+        "1": {
+          "enemy_type": "regenerating",
+          "enemy_quantity": 10,
+          "density": 0.575
+        },
+        "2": {
+          "enemy_type": "common",
+          "enemy_quantity": 25,
+          "density": 0.425
+        },
+        "3": {
+          "enemy_type": "powerful",
+          "enemy_quantity": 5,
+          "density": 0.4
+        }
+      },
+      "7": {
+        "1": {
+          "enemy_type": "regenerating",
+          "enemy_quantity": 25,
+          "density": 0.95
+        }
+      },
+      "8": {
+        "1": {
+          "enemy_type": "common",
+          "enemy_quantity": 5,
+          "density": 0.1
+        }
       }
     }
   }
