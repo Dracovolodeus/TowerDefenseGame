@@ -1,5 +1,6 @@
 import arcade
-from arcade.gui import UIAnchorLayout, UIBoxLayout, UIFlatButton, UILabel, UIManager
+from arcade.gui import (UIAnchorLayout, UIBoxLayout, UIFlatButton, UILabel,
+                        UIManager)
 
 import config as cfg
 from core.gui.components.play.tower_button import TowerButton

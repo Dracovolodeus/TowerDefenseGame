@@ -14,6 +14,7 @@ class Level(BaseView):
     def __init__(self, gui_manager, texture_pool: TexturePool, level_number: int):
         super().__init__(gui_manager, texture_pool)
         self.show_menu = False
+        self.level_number = level_number
         self.level_map = LevelMap(
             texture_pool, level_number, self.add_level_money, self.add_research_money
         )
@@ -162,6 +163,17 @@ class Level(BaseView):
             self.level_gui.loose_button.disabled = False
             self.level_gui.is_paused = True
             cfg.settings.save.money += self.__research_money
+            match self.level_number:
+                case 1:
+                    cfg.settings.save.first_level_records = self.current_wave
+                case 2:
+                    cfg.settings.save.second_level_records = self.current_wave
+                case 3:
+                    cfg.settings.save.third_level_records = self.current_wave
+                case 4:
+                    cfg.settings.save.fourth_level_records = self.current_wave
+                case 5:
+                    cfg.settings.save.fifth_level_records = self.current_wave
             cfg.settings.save.save()
 
     def add_level_money(self, value: int) -> None:

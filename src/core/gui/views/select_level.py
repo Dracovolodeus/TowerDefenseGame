@@ -7,6 +7,14 @@ from core.gui.views.base import BaseView
 
 class SelectLevelView(BaseView):
 
+    def on_show_view(self) -> None:
+        super().on_show_view()
+        self.record_lable_1.text = f"Рекорд: {cfg.settings.save.first_level_records}"
+        self.record_lable_2.text = f"Рекорд: {cfg.settings.save.third_level_records}"
+        self.record_lable_3.text = f"Рекорд: {cfg.settings.save.second_level_records}"
+        self.record_lable_4.text = f"Рекорд: {cfg.settings.save.fourth_level_records}"
+        self.record_lable_5.text = f"Рекорд: {cfg.settings.save.fifth_level_records}"
+
     def setup_widgets(self) -> None:
         if self._widgets_initialized:
             return
@@ -51,46 +59,37 @@ class SelectLevelView(BaseView):
         self._manager.add(anchor)
         self._manager.add(back_button)
 
-        self._manager.add(
-            UILabel(
+        self.record_lable_1 = UILabel(
                 f"Рекорд: {cfg.settings.save.first_level_records}",
                 y=cfg.settings.screen.height // 2 - 100,
                 x=375
             )
-        )
-
-        self._manager.add(
-            UILabel(
+        self.record_lable_2 = UILabel(
                 f"Рекорд: {cfg.settings.save.third_level_records}",
                 y=cfg.settings.screen.height // 2 - 100,
                 x=555
             )
-        )
-
-        self._manager.add(
-            UILabel(
+        self.record_lable_3 = UILabel(
                 f"Рекорд: {cfg.settings.save.second_level_records}",
                 y=cfg.settings.screen.height // 2 - 100,
                 x=735
             )
-        )
-
-        self._manager.add(
-            UILabel(
+        self.record_lable_4 = UILabel(
                 f"Рекорд: {cfg.settings.save.fourth_level_records}",
                 y=cfg.settings.screen.height // 2 - 100,
                 x=910
             )
-        )
-
-        self._manager.add(
-            UILabel(
+        self.record_lable_5 = UILabel(
                 f"Рекорд: {cfg.settings.save.fifth_level_records}",
                 y=cfg.settings.screen.height // 2 - 100,
                 x=1090,
                 width=100
             )
-        )
+        self._manager.add(self.record_lable_1)
+        self._manager.add(self.record_lable_2)
+        self._manager.add(self.record_lable_3)
+        self._manager.add(self.record_lable_4)
+        self._manager.add(self.record_lable_5)
 
     def on_draw(self):
         self.clear()
