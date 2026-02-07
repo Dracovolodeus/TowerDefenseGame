@@ -1,5 +1,5 @@
 import arcade
-from arcade.gui import UIAnchorLayout, UIBoxLayout, UIFlatButton
+from arcade.gui import UIAnchorLayout, UIBoxLayout, UIFlatButton, UILabel
 
 import config as cfg
 from core.gui.views.base import BaseView
@@ -50,6 +50,47 @@ class SelectLevelView(BaseView):
 
         self._manager.add(anchor)
         self._manager.add(back_button)
+
+        self._manager.add(
+            UILabel(
+                f"Рекорд: {cfg.settings.save.first_level_records}",
+                y=cfg.settings.screen.height // 2 - 100,
+                x=375
+            )
+        )
+
+        self._manager.add(
+            UILabel(
+                f"Рекорд: {cfg.settings.save.third_level_records}",
+                y=cfg.settings.screen.height // 2 - 100,
+                x=555
+            )
+        )
+
+        self._manager.add(
+            UILabel(
+                f"Рекорд: {cfg.settings.save.second_level_records}",
+                y=cfg.settings.screen.height // 2 - 100,
+                x=735
+            )
+        )
+
+        self._manager.add(
+            UILabel(
+                f"Рекорд: {cfg.settings.save.fourth_level_records}",
+                y=cfg.settings.screen.height // 2 - 100,
+                x=910
+            )
+        )
+
+        self._manager.add(
+            UILabel(
+                f"Рекорд: {cfg.settings.save.fifth_level_records}",
+                y=cfg.settings.screen.height // 2 - 100,
+                x=1090,
+                width=100
+            )
+        )
 
     def on_draw(self):
         self.clear()
