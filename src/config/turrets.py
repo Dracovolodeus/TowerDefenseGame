@@ -9,7 +9,7 @@ class Base:
     delay: float = 0.5
     distans: float = 512
     bullet_speed: float = 375
-    price: int = 50
+    price: int = 55
 
 
 @dataclass
@@ -18,7 +18,7 @@ class Sniper:
     delay: float = 2.35
     distans: float = 2048
     bullet_speed: float = 1792
-    price: int = 75
+    price: int = 95
 
 
 @dataclass
@@ -27,7 +27,7 @@ class Multishoot:
     delay: float = 1.75
     distans: float = 640
     bullet_speed: float = 370
-    price: int = 60
+    price: int = 75
 
 
 @dataclass
@@ -37,7 +37,7 @@ class Shotgun:
     distans: float = 512
     bullet_speed: float = 256
     blast_range: float = 96
-    price: int = 60
+    price: int = 75
 
 
 @dataclass
@@ -46,7 +46,7 @@ class Venom:
     delay: float = 1.5
     distans: float = 384
     bullet_speed: float = 85
-    price: int = 70
+    price: int = 85
 
 
 class Turrets:
