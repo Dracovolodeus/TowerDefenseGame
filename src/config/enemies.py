@@ -45,3 +45,6 @@ class Enemies:
         self.fast = Fast(self.path.fast)
         self.regenerating = Regenerating(self.path.regenerating)
         self.boss = Boss(self.path.boss)
+        self.fast_dodge_probability = 0.2
+        self.boss_impenetrability_probability = 0.1
+        self.boss_part_penetration_probability = 0.25
