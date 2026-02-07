@@ -26,7 +26,6 @@ class PlayGUI:
         self.menu_manager = UIManager()
         self.loose_manager = UIManager()
 
-        self.menu_manager.enable()
         self.manager.enable()
 
         base_turret = cfg.settings.path.get_turret("base")

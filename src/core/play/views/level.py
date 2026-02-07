@@ -75,8 +75,10 @@ class Level(BaseView):
                     pressed_tile[0].center_y,
                 )
                 self.show_menu = True
+                self.level_gui.menu_manager.enable()
             else:
                 self.show_menu = False
+                self.level_gui.menu_manager.disable()
         if button == arcade.MOUSE_BUTTON_RIGHT:
             pressed_tile = arcade.get_sprites_at_point(
                 (x, y), self.level_map.get_platform_tiles()
@@ -176,7 +178,7 @@ class Level(BaseView):
             next(self.__wave_gen)
 
     def add_turret(self, name, position):
-        if self.level_gui.can_be_buyed(name):
+        if self.show_menu and self.level_gui.can_be_buyed(name):
             self.__turrets_manager.add_turret(name, position)
 
     def sell_tower(self, position):
