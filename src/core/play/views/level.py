@@ -135,6 +135,7 @@ class Level(BaseView):
         if not self.level_gui.is_paused and self.health != 0:
             self.__spawn_enemies_if_need(delta_time)
             self.__enemy_manager.update(delta_time)
+            self.level_map.update(delta_time)
             self.__bullet_manager.update()
             self.__turrets_manager.update(delta_time)
 

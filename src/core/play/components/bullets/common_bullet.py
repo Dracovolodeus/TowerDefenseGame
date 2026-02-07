@@ -1,8 +1,8 @@
 import math
-import config as cfg
 
 import arcade
 
+import config as cfg
 from core.play.components.enemies.base_enemy import BaseEnemy
 
 
@@ -38,7 +38,11 @@ class CommonBullet(arcade.Sprite):
         self.center_x += self.change_x * delta_time
         self.center_y += self.change_y * delta_time
         self.__path += (self.change_x + self.change_y) * delta_time
-        if self.__path > math.sqrt(cfg.settings.screen.width ** 2 + cfg.settings.screen.height ** 2) * 1.5:
+        if (
+            self.__path
+            > math.sqrt(cfg.settings.screen.width**2 + cfg.settings.screen.height**2)
+            * 1.5
+        ):
             self.kill()
         self.angle = (self.angle + self.change_angle * delta_time) % 360
         self.__check_collision()
