@@ -54,6 +54,9 @@ class LevelMap:
         self.__tiles.draw()
         self.__platform_tiles.draw()
 
+    def update(self, delta_time: float) -> None:
+        self.__portal.update(delta_time)
+
     def get_path(self) -> list[tuple[int, int]]:
         return self.__path
 
