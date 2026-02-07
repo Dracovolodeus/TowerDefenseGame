@@ -57,9 +57,12 @@ class Level(BaseView):
         self._manager.disable()
 
     def on_mouse_press(
-        self, x: int, y: int, button: int, modifiers: int
+            self, x: int, y: int, button: int, modifiers: int
     ) -> bool | None:
-        if self.level_gui.manager.on_mouse_press(x, y, button, modifiers):
+        if (
+                self.level_gui.manager.on_mouse_press(x, y, button, modifiers) or
+                self.level_gui.menu_manager.on_mouse_press(x, y, button, modifiers)
+        ):
             return
 
         if button == arcade.MOUSE_BUTTON_LEFT:
@@ -79,9 +82,9 @@ class Level(BaseView):
                 (x, y), self.level_map.get_platform_tiles()
             )
             if (
-                pressed_tile
-                and (pressed_tile[0].center_x, pressed_tile[0].center_y)
-                in self.turrets_positions
+                    pressed_tile
+                    and (pressed_tile[0].center_x, pressed_tile[0].center_y)
+                    in self.turrets_positions
             ):
                 position = (pressed_tile[0].center_x, pressed_tile[0].center_y)
                 self.sell_tower(position),
@@ -134,8 +137,8 @@ class Level(BaseView):
             self.__turrets_manager.update(delta_time)
 
             if (
-                self.level_gui.turret_placed is not None
-                and self.level_gui.curr_position not in self.turrets_positions
+                    self.level_gui.turret_placed is not None
+                    and self.level_gui.curr_position not in self.turrets_positions
             ):
                 self.add_turret(
                     self.level_gui.turret_placed, self.level_gui.curr_position
@@ -152,6 +155,7 @@ class Level(BaseView):
             self.level_gui.manager.disable()
             self.level_gui.loose_manager.enable()
             self.set_result_money = self.__research_money
+            self.level_gui.loose_button.disabled = False
             self.level_gui.is_paused = True
             cfg.settings.save.money += self.__research_money
             cfg.settings.save.save()
