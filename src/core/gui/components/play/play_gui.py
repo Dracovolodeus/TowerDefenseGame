@@ -132,11 +132,12 @@ class PlayGUI:
         loose_box.add(UILabel(f"Вы дошли до {self._wave} волны", font_size=36))
         self.result_money_label = UILabel(f"Вы заработали {0} монет", font_size=36)
         loose_box.add(self.result_money_label)
-        loose_button = UIFlatButton(text="Выйти в выбор уровней", width=200)
+        self.loose_button = UIFlatButton(text="Выйти в выбор уровней", width=300, height=100)
 
-        loose_button.on_click = lambda event: gui_manager.set_level_selection_menu()
+        self.loose_button.on_click = lambda event: gui_manager.set_level_selection_menu()
+        self.loose_button.disabled = True
 
-        loose_box.add(loose_button)
+        loose_box.add(self.loose_button)
 
         self.loose_anchor.add(loose_box)
         self.loose_manager.add(self.loose_anchor)
