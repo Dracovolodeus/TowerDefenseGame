@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path as PathLibPath
 from typing import Literal
+import sys
 
 
 @dataclass
@@ -13,13 +14,17 @@ class Turret:
 class Path:
     def __init__(self) -> None:
 
-        # Base
-        self.program_data = PathLibPath("../.program_data")
-        self.save = self.program_data / "save.json"
 
-        # Assets
-        self.root = PathLibPath(".")
+        # Base
+        try:
+            self.root = PathLibPath(sys._MEIPASS)
+            self.program_data = PathLibPath("./.program_data")
+        except AttributeError:
+            self.root = PathLibPath(".")
+            self.program_data = PathLibPath("../.program_data")
+
         self.__assets = self.root / "assets"
+        self.save = self.program_data / "save.json"
 
         # Images
         self.__images = self.__assets / "images"
