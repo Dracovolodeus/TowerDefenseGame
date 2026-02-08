@@ -129,8 +129,9 @@ class PlayGUI:
 
         self.loose_anchor = UIAnchorLayout()
         loose_box = UIBoxLayout(vertical=True)
-        loose_box.add(UILabel(f"Вы дошли до {self._wave} волны", font_size=36))
         self.result_money_label = UILabel(f"Вы заработали {0} монет", font_size=36)
+        self.loose_wave_lable = UILabel(f"Вы дошли до {self._wave} волны", font_size=36)
+        loose_box.add(self.loose_wave_lable)
         loose_box.add(self.result_money_label)
         self.loose_button = UIFlatButton(text="Выйти в выбор уровней", width=300, height=100)
 
@@ -218,3 +219,4 @@ class PlayGUI:
     def set_wave(self, wave):
         self._wave = wave
         self.wave_text.text = f"Волна: {self._wave}"
+        self.loose_wave_lable.text = f"Вы дошли до {self._wave} волны"

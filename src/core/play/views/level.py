@@ -159,7 +159,7 @@ class Level(BaseView):
         if self.health == 0:
             self.level_gui.manager.disable()
             self.level_gui.loose_manager.enable()
-            self.set_result_money = self.__research_money
+            self.level_gui.set_result_money(self.__research_money)
             self.level_gui.loose_button.disabled = False
             self.level_gui.is_paused = True
             cfg.settings.save.money += self.__research_money
