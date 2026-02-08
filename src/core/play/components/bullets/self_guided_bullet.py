@@ -38,7 +38,7 @@ class SelfGuidedBullet(arcade.Sprite):
         angle_rad = math.radians(angle)
         self.center_x += self.speed * math.cos(angle_rad) * delta_time
         self.center_y += self.speed * math.sin(angle_rad) * delta_time
-        self.__path += self.speed
+        self.__path += self.speed * delta_time
         if (
             self.__path
             > math.sqrt(cfg.settings.screen.width**2 + cfg.settings.screen.height**2)
